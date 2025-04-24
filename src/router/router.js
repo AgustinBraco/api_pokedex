@@ -4,7 +4,7 @@ import { authRoute, usersRoute, productsRoute } from '../routes/routes.js'
 const router = express.Router()
 
 // Check
-router.get('/check', (req, res) =>
+router.get('/', (req, res) =>
   res.status(200).json({
     status: 'success',
     message: 'Service running correctly'
