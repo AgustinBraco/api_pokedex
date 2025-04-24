@@ -589,7 +589,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{crud}}/api/crud/check",
+					"raw": "{{crud}}/api/crud",
 					"host": [
 						"{{crud}}"
 					],
