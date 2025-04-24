@@ -1,8 +1,8 @@
 class ProductDTO {
   constructor(product) {
     this.name = product.name
-    this.category = product.category || ''
-    this.stock = product.stock || 0
+    this.category = product.category
+    this.stock = product.stock
     this.price = product.price
   }
 }

@@ -1,5 +1,5 @@
-import authRoute from './auth.route.js'
-import usersRoute from './users.route.js'
-import productsRoute from './products.route.js'
+import authRoute from './auth.routes.js'
+import usersRoute from './users.routes.js'
+import productsRoute from './products.routes.js'
 
 export { authRoute, usersRoute, productsRoute }

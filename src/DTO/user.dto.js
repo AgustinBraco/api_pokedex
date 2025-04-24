@@ -4,8 +4,8 @@ class UserDTO {
   constructor(user) {
     this.firstName = user.firstName
     this.lastName = user.lastName
-    this.birthday = user.birthday || ''
-    this.gender = user.gender || ''
+    this.birthday = user.birthday
+    this.gender = user.gender
     this.email = user.email
     this.password = user.password
     this.role = 'user'
