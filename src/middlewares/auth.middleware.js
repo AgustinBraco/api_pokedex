@@ -14,7 +14,7 @@ export const isValidLogin = (req, res, next) => {
   if (isInvalidCredentials)
     return res.status(400).json({
       status: 'error',
-      message: `Invalid credentials`
+      message: `Invalid email or password`
     })
 
   next()

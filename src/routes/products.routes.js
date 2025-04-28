@@ -24,23 +24,6 @@ productsRoute.get('/', async (req, res) => {
   })
 })
 
-// Retrieve product by ID
-productsRoute.get('/:id', async (req, res) => {
-  const { id } = req.params
-  const product = await ProductDAO.getById(id)
-
-  product
-    ? res.status(200).json({
-        status: 'success',
-        message: 'Product retrieved successfully',
-        data: product
-      })
-    : res.status(404).json({
-        status: 'error',
-        message: 'Product not found'
-      })
-})
-
 // Create product
 productsRoute.post('/', isAuth, isAdmin, isValidProduct, async (req, res) => {
   const { name, category, stock, price } = req.body
@@ -59,6 +42,33 @@ productsRoute.post('/', isAuth, isAdmin, isValidProduct, async (req, res) => {
     message: 'Product created successfully',
     data
   })
+})
+
+// Delete all products
+productsRoute.delete('/', isAuth, isAdmin, async (req, res) => {
+  await ProductDAO.deleteAll()
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Products deleted successfully'
+  })
+})
+
+// Retrieve product by ID
+productsRoute.get('/:id', async (req, res) => {
+  const { id } = req.params
+  const product = await ProductDAO.getById(id)
+
+  product
+    ? res.status(200).json({
+        status: 'success',
+        message: 'Product retrieved successfully',
+        data: product
+      })
+    : res.status(404).json({
+        status: 'error',
+        message: 'Product not found'
+      })
 })
 
 // Update product by ID
@@ -109,16 +119,6 @@ productsRoute.delete('/:id', isAuth, isAdmin, async (req, res) => {
   return res.status(200).json({
     status: 'success',
     message: 'Product deleted successfully'
-  })
-})
-
-// Delete all products
-productsRoute.delete('/', isAuth, isAdmin, async (req, res) => {
-  await ProductDAO.deleteAll()
-
-  res.status(200).json({
-    status: 'success',
-    message: 'Products deleted successfully'
   })
 })
 

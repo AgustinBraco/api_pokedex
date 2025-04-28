@@ -27,7 +27,7 @@ authRoute.post('/register', isValidUser, async (req, res) => {
   // Validate if already exist
   const userExist = await AuthDAO.getUser(email)
   if (userExist) {
-    return res.status(400).json({
+    return res.status(409).json({
       status: 'error',
       message: 'Email already exist'
     })
@@ -64,7 +64,7 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
   // Validate if exist
   const user = await AuthDAO.getUser(email)
   if (!user)
-    return res.status(404).json({
+    return res.status(401).json({
       status: 'error',
       message: 'Email does not exist'
     })
@@ -72,7 +72,7 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
   // Validate password
   const isValidPassword = await verifyPassword(password, user.password)
   if (!isValidPassword)
-    return res.status(400).json({
+    return res.status(401).json({
       status: 'error',
       message: 'Invalid credentials'
     })
@@ -85,7 +85,7 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
 
   return res.status(200).json({
     status: 'success',
-    message: 'User created successfully',
+    message: 'User loged successfully',
     token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
   })
 })

@@ -20,7 +20,7 @@ export const isValidProduct = async (req, res, next) => {
     if (!isValid)
       return res.status(400).json({
         status: 'error',
-        message: `Invalid field ${field}`
+        message: `Invalid field '${field}'`
       })
   }
 

@@ -1,0 +1,30 @@
+{
+  "/": {
+    "get": {
+      "tags": ["Root"],
+      "summary": "Verify if service is running",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Service running correctly"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

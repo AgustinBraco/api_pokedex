@@ -215,7 +215,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{crud}}/api/crud/users/680aad5704ac98c7f07bede0",
+							"raw": "{{crud}}/api/crud/users/680f1cf2cb1879aec48d80a2",
 							"host": [
 								"{{crud}}"
 							],
@@ -223,7 +223,7 @@
 								"api",
 								"crud",
 								"users",
-								"680aad5704ac98c7f07bede0"
+								"680f1cf2cb1879aec48d80a2"
 							]
 						}
 					},
@@ -246,7 +246,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Nombre\",\r\n    \"lastName\": \"Apellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"new_user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
+							"raw": "{\r\n    \"firstName\": \"Nombre\",\r\n    \"lastName\": \"Apellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -285,7 +285,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"NewNombre\",\r\n    \"lastName\": \"NewApellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
+							"raw": "{\r\n    \"firstName\": \"Nuevo Nombre\",\r\n    \"lastName\": \"Nuevo Apellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -293,7 +293,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{crud}}/api/crud/users/680ab5f24bead3c32cf0564f",
+							"raw": "{{crud}}/api/crud/users/680f276b044863809814158a",
 							"host": [
 								"{{crud}}"
 							],
@@ -301,7 +301,7 @@
 								"api",
 								"crud",
 								"users",
-								"680ab5f24bead3c32cf0564f"
+								"680f276b044863809814158a"
 							]
 						}
 					},
@@ -323,7 +323,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{crud}}/api/crud/users/680ab5f24bead3c32cf0564f",
+							"raw": "{{crud}}/api/crud/users/680f276b044863809814158d",
 							"host": [
 								"{{crud}}"
 							],
@@ -331,7 +331,7 @@
 								"api",
 								"crud",
 								"users",
-								"680ab5f24bead3c32cf0564f"
+								"680f276b044863809814158d"
 							]
 						}
 					},
@@ -426,7 +426,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{crud}}/api/crud/products/680ab6304bead3c32cf05664",
+							"raw": "{{crud}}/api/crud/products/680d4436329d151430bdaa8d",
 							"host": [
 								"{{crud}}"
 							],
@@ -434,7 +434,7 @@
 								"api",
 								"crud",
 								"products",
-								"680ab6304bead3c32cf05664"
+								"680d4436329d151430bdaa8d"
 							]
 						}
 					},
@@ -496,7 +496,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"New Producto\",\r\n    \"category\": \"New Categoria\",\r\n    \"stock\": 30,\r\n    \"price\": 3000\r\n}",
+							"raw": "{\r\n    \"name\": \"Nuevo Producto\",\r\n    \"category\": \"Nueva Categoria\",\r\n    \"stock\": 30,\r\n    \"price\": 3000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -504,7 +504,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{crud}}/api/crud/products/680ab6304bead3c32cf05664",
+							"raw": "{{crud}}/api/crud/products/680d4436329d151430bdaa8d",
 							"host": [
 								"{{crud}}"
 							],
@@ -512,7 +512,7 @@
 								"api",
 								"crud",
 								"products",
-								"680ab6304bead3c32cf05664"
+								"680d4436329d151430bdaa8d"
 							]
 						}
 					},
@@ -534,7 +534,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{crud}}/api/crud/products/680ab62e4bead3c32cf05660",
+							"raw": "{{crud}}/api/crud/products/680d4436329d151430bdaa8d",
 							"host": [
 								"{{crud}}"
 							],
@@ -542,7 +542,7 @@
 								"api",
 								"crud",
 								"products",
-								"680ab62e4bead3c32cf05660"
+								"680d4436329d151430bdaa8d"
 							]
 						}
 					},
@@ -595,8 +595,36 @@
 					],
 					"path": [
 						"api",
+						"crud"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Docs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{crud}}/api/crud/docs",
+					"host": [
+						"{{crud}}"
+					],
+					"path": [
+						"api",
 						"crud",
-						"check"
+						"docs"
 					]
 				}
 			},

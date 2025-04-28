@@ -1,0 +1,9 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API CRUD",
+    "version": "1.0.0",
+    "description": "This is a simple CRUD (Create, Read, Update, Delete) API built with JavaScript and Express. \n\n It allows clients to manage resources via RESTful endpoints using standard HTTP methods. \n\n The API includes user authentication with JWT and password hashing using bcryptjs. \n\n It uses CORS middleware to handle cross-origin requests and dotenv for environment variable management. \n\n Data is stored in a MongoDB database using Mongoose as the ODM. \n\n Swagger is integrated for automatic API documentation."
+  },
+  "paths": {}
+}

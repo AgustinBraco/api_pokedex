@@ -16,7 +16,7 @@ export const isValidUser = async (req, res, next) => {
     if (user[field].length <= 0 || typeof user[field] !== 'string')
       return res.status(400).json({
         status: 'error',
-        message: `Invalid field ${field}`
+        message: `Invalid field '${field}'`
       })
 
   next()

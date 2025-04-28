@@ -24,6 +24,47 @@ usersRoute.get('/', isAuth, isAdmin, async (req, res) => {
   })
 })
 
+// Create user
+usersRoute.post('/', isAuth, isAdmin, isValidUser, async (req, res) => {
+  const { firstName, lastName, birthday, gender, email, password } = req.body
+
+  // Validate if already exist
+  const userExist = await UserDAO.getByEmail(email)
+  if (userExist) {
+    return res.status(409).json({
+      status: 'error',
+      message: 'Email already exist'
+    })
+  }
+
+  // Create and retrieve user
+  const user = await UserDTO.create({
+    firstName,
+    lastName,
+    birthday,
+    gender,
+    email,
+    password
+  })
+  const data = await UserDAO.create(user)
+
+  return res.status(200).json({
+    status: 'success',
+    message: 'User created successfully',
+    data
+  })
+})
+
+// Delete all users
+usersRoute.delete('/', isAuth, isAdmin, async (req, res) => {
+  await UserDAO.deleteAll()
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Users deleted successfully'
+  })
+})
+
 // Retrieve user by ID
 usersRoute.get('/:id', isAuth, isAdmin, async (req, res) => {
   const { id } = req.params
@@ -39,43 +80,6 @@ usersRoute.get('/:id', isAuth, isAdmin, async (req, res) => {
         status: 'error',
         message: 'User not found'
       })
-})
-
-// Create user
-usersRoute.post('/', isAuth, isAdmin, isValidUser, async (req, res) => {
-  const { firstName, lastName, birthday, gender, email, password } = req.body
-
-  // Validate if already exist
-  const userExist = await UserDAO.getByEmail(email)
-  if (userExist) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Email already exist'
-    })
-  }
-
-  // Create user
-  const user = await UserDTO.create({
-    firstName,
-    lastName,
-    birthday,
-    gender,
-    email,
-    password
-  })
-  await UserDAO.create(user)
-
-  // Create data and send
-  const data = {
-    email: user.email,
-    role: user.role
-  }
-
-  return res.status(200).json({
-    status: 'success',
-    message: 'User created successfully',
-    data
-  })
 })
 
 // Update user by ID
@@ -94,16 +98,14 @@ usersRoute.put('/:id', isAuth, isAdmin, isValidUser, async (req, res) => {
 
   // Validate non duplicate email
   const userExist = await UserDAO.getByEmail(email)
-  const isDifferentUser = userExist._id.toString() !== id
-
-  if (userExist && isDifferentUser) {
-    return res.status(400).json({
+  if (userExist && userExist._id.toString() !== id) {
+    return res.status(409).json({
       status: 'error',
       message: 'Email already exist'
     })
   }
 
-  // Update user
+  // Update and retrieve user
   const user = await UserDTO.create({
     firstName,
     lastName,
@@ -112,13 +114,8 @@ usersRoute.put('/:id', isAuth, isAdmin, isValidUser, async (req, res) => {
     email,
     password
   })
-  await UserDAO.update(id, user)
 
-  // Create data and send
-  const data = {
-    email: user.email,
-    role: user.role
-  }
+  const data = await UserDAO.update(id, user)
 
   return res.status(200).json({
     status: 'success',
@@ -146,16 +143,6 @@ usersRoute.delete('/:id', isAuth, isAdmin, async (req, res) => {
   return res.status(200).json({
     status: 'success',
     message: 'User deleted successfully'
-  })
-})
-
-// Delete all users
-usersRoute.delete('/', isAuth, isAdmin, async (req, res) => {
-  await UserDAO.deleteAll()
-
-  res.status(200).json({
-    status: 'success',
-    message: 'Users deleted successfully'
   })
 })
 

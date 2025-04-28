@@ -1,0 +1,691 @@
+{
+  "/products/check": {
+    "get": {
+      "tags": ["Products"],
+      "summary": "Verify if products route is running",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Products running correctly"
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Products running correctly"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/products": {
+    "get": {
+      "tags": ["Products"],
+      "summary": "Get all products",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Products retrieved successfully"
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "680d4265231fdf6283dd81e1"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Primer producto"
+                        },
+                        "category": {
+                          "type": "string",
+                          "example": "Primera categoría"
+                        },
+                        "stock": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 1000
+                        },
+                        "__v": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Products retrieved successfully",
+                "data": [
+                  {
+                    "_id": "680d4265231fdf6283dd81e1",
+                    "name": "Primer producto",
+                    "category": "Primera categoría",
+                    "stock": 10,
+                    "price": 1000,
+                    "__v": 0
+                  },
+                  {
+                    "_id": "680d4436329d151430bdaa8d",
+                    "name": "Segundo producto",
+                    "category": "Segunda categoría",
+                    "stock": 20,
+                    "price": 2000,
+                    "__v": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "tags": ["Products"],
+      "summary": "Create product",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Product created successfully"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "680d4265231fdf6283dd81e1"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Product"
+                      },
+                      "category": {
+                        "type": "string",
+                        "example": "Categoría"
+                      },
+                      "stock": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 1000
+                      },
+                      "__v": {
+                        "type": "number",
+                        "example": 0
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Product created successfully",
+                "data": {
+                  "_id": "680d4265231fdf6283dd81e1",
+                  "name": "Producto",
+                  "category": "Categoría",
+                  "stock": 10,
+                  "price": 1000,
+                  "__v": 0
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "BAD REQUEST",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid field 'FIELD_NAME'"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid field 'FIELD_NAME'"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "tags": ["Products"],
+      "summary": "Delete all products",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Products deleted successfully"
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Products deleted successfully"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/products/:id": {
+    "get": {
+      "tags": ["Products"],
+      "summary": "Get product by ID",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Product retrieved successfully"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "680d4265231fdf6283dd81e1"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Producto"
+                      },
+                      "category": {
+                        "type": "string",
+                        "example": "Categoría"
+                      },
+                      "stock": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 1000
+                      },
+                      "__v": {
+                        "type": "number",
+                        "example": 0
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Product retrieved successfully",
+                "data": {
+                  "_id": "680d4265231fdf6283dd81e1",
+                  "name": "Producto",
+                  "category": "Categoría",
+                  "stock": 10,
+                  "price": 1000,
+                  "__v": 0
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "NOT FOUND",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Product not found"
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Product not found"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": ["Products"],
+      "summary": "Update product by ID",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Product updated successfully"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "680d4265231fdf6283dd81e1"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Product"
+                      },
+                      "category": {
+                        "type": "string",
+                        "example": "Categoría"
+                      },
+                      "stock": {
+                        "type": "number",
+                        "example": 10
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 1000
+                      },
+                      "__v": {
+                        "type": "number",
+                        "example": 0
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Product updated successfully",
+                "data": {
+                  "_id": "680d4265231fdf6283dd81e1",
+                  "name": "Producto",
+                  "category": "Categoría",
+                  "stock": 10,
+                  "price": 1000,
+                  "__v": 0
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "BAD REQUEST",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid field 'FIELD_NAME'"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid field 'FIELD_NAME'"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "NOT FOUND",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Product not found"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Product not found"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "tags": ["Products"],
+      "summary": "Delete product by ID",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Product deleted successfully"
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Product deleted successfully"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "NOT FOUND",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Product not found"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Product not found"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

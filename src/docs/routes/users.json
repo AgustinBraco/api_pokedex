@@ -1,0 +1,898 @@
+{
+  "/users/check": {
+    "get": {
+      "tags": ["Users"],
+      "summary": "Verify if users route is running",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Users running correctly"
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Users running correctly"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/users": {
+    "get": {
+      "tags": ["Users"],
+      "summary": "Get all users",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Users retrieved successfully"
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "680d4265231fdf6283dd81e1"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "example": "Nombre"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "example": "Apellido"
+                        },
+                        "birthday": {
+                          "type": "string",
+                          "example": "01/01/2000"
+                        },
+                        "gender": {
+                          "type": "string",
+                          "example": "M"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "user@email.com"
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "$2b$10$OUES4cNSBqBZmL13APIyQTdrN1g1eL7Rt"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "__v": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Users retrieved successfully",
+                "data": [
+                  {
+                    "_id": "680f1cf2cb1879aec48d80a2",
+                    "firstName": "Primer nombre",
+                    "lastName": "Primer apellido",
+                    "birthday": "01/01/2000",
+                    "gender": "M",
+                    "email": "primer@email.com",
+                    "password": "$2b$10$OBZmL13AeL7RtJWFXV6hEuD9VJFqFhZaSPIyQTdrN1g1UES4cNSBq",
+                    "role": "user",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "680f1cfbcb1879aec48d80a5",
+                    "firstName": "Seguno nombre",
+                    "lastName": "Segundo apellido",
+                    "birthday": "02/02/2002",
+                    "gender": "F",
+                    "email": "segundo@email.com",
+                    "password": "$2b$uz8F86s10Ds.6S2t6O.xhy$i.qQxjL/NRo.5TaB/41/nP.O6kYCg9k6e",
+                    "role": "user",
+                    "__v": 0
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "tags": ["Users"],
+      "summary": "Create user",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "User created successfully"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "680d4265231fdf6283dd81e1"
+                      },
+                      "firstName": {
+                        "type": "string",
+                        "example": "Nombre"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "example": "Apellido"
+                      },
+                      "birthday": {
+                        "type": "string",
+                        "example": "01/01/2000"
+                      },
+                      "gender": {
+                        "type": "string",
+                        "example": "M"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "user@email.com"
+                      },
+                      "password": {
+                        "type": "string",
+                        "example": "$2b$10$OUES4cNSBqBZmL13APIyQTdrN1g1eL7Rt"
+                      },
+                      "role": {
+                        "type": "string",
+                        "example": "user"
+                      },
+                      "__v": {
+                        "type": "number",
+                        "example": 0
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "User created successfully",
+                "data": {
+                  "_id": "680f1cf2cb1879aec48d80a2",
+                  "firstName": "Nombre",
+                  "lastName": "Apellido",
+                  "birthday": "01/01/2000",
+                  "gender": "M",
+                  "email": "user@email.com",
+                  "password": "$2b$10$OBZmL13AeL7RtJWFXV6hEuD9VJFqFhZaSPIyQTdrN1g1UES4cNSBq",
+                  "role": "user",
+                  "__v": 0
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "BAD REQUEST",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid field 'FIELD_NAME'"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid field 'FIELD_NAME'"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "CONFLICT",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Email already exist"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Email already exist"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "tags": ["Users"],
+      "summary": "Delete all users",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Users deleted successfully"
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Users deleted successfully"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/users/:id": {
+    "get": {
+      "tags": ["Users"],
+      "summary": "Get user by ID",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "User retrieved successfully"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "680d4265231fdf6283dd81e1"
+                      },
+                      "firstName": {
+                        "type": "string",
+                        "example": "Nombre"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "example": "Apellido"
+                      },
+                      "birthday": {
+                        "type": "string",
+                        "example": "01/01/2000"
+                      },
+                      "gender": {
+                        "type": "string",
+                        "example": "M"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "user@email.com"
+                      },
+                      "password": {
+                        "type": "string",
+                        "example": "$2b$10$OUES4cNSBqBZmL13APIyQTdrN1g1eL7Rt"
+                      },
+                      "role": {
+                        "type": "string",
+                        "example": "user"
+                      },
+                      "__v": {
+                        "type": "number",
+                        "example": 0
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "User retrieved successfully",
+                "data": {
+                  "_id": "680f1cf2cb1879aec48d80a2",
+                  "firstName": "Nombre",
+                  "lastName": "Apellido",
+                  "birthday": "01/01/2000",
+                  "gender": "M",
+                  "email": "user@email.com",
+                  "password": "$2b$10$OBZmL13AeL7RtJWFXV6hEuD9VJFqFhZaSPIyQTdrN1g1UES4cNSBq",
+                  "role": "user",
+                  "__v": 0
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "NOT FOUND",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "User not found"
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "User not found"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "tags": ["Users"],
+      "summary": "Update user by ID",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "User updated successfully"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "680d4265231fdf6283dd81e1"
+                      },
+                      "firstName": {
+                        "type": "string",
+                        "example": "Nombre"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "example": "Apellido"
+                      },
+                      "birthday": {
+                        "type": "string",
+                        "example": "01/01/2000"
+                      },
+                      "gender": {
+                        "type": "string",
+                        "example": "M"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "user@email.com"
+                      },
+                      "password": {
+                        "type": "string",
+                        "example": "$2b$10$OUES4cNSBqBZmL13APIyQTdrN1g1eL7Rt"
+                      },
+                      "role": {
+                        "type": "string",
+                        "example": "user"
+                      },
+                      "__v": {
+                        "type": "number",
+                        "example": 0
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "User updated successfully",
+                "data": {
+                  "_id": "680f1cf2cb1879aec48d80a2",
+                  "firstName": "Nombre",
+                  "lastName": "Apellido",
+                  "birthday": "01/01/2000",
+                  "gender": "M",
+                  "email": "user@email.com",
+                  "password": "$2b$10$OBZmL13AeL7RtJWFXV6hEuD9VJFqFhZaSPIyQTdrN1g1UES4cNSBq",
+                  "role": "user",
+                  "__v": 0
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "BAD REQUEST",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid field 'FIELD_NAME'"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid field 'FIELD_NAME'"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "NOT FOUND",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "User not found"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "User not found"
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "CONFLICT",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Email already exist"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Email already exist"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "tags": ["Users"],
+      "summary": "Delete user by ID",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "User deleted successfully"
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "User deleted successfully"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "FORBIDDEN",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Access denied"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Access denied"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "NOT FOUND",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "User not found"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "User not found"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
