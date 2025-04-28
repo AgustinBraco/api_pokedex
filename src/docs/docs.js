@@ -1,18 +1,28 @@
 import environment from '../environment/environment.js'
-import docs from './docs.json' assert { type: 'json' }
-import root from './routes/root.json' assert { type: 'json' }
-import auth from './routes/auth.json' assert { type: 'json' }
-import prodcuts from './routes/products.json' assert { type: 'json' }
-import user from './routes/users.json' assert { type: 'json' }
+import { readFile } from 'fs/promises'
+import { dirname, join } from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+const docsData = await readFile(join(__dirname, './docs.json'), 'utf-8')
+const rootData = await readFile(join(__dirname, './routes/root.json'), 'utf-8')
+const authData = await readFile(join(__dirname, './routes/auth.json'), 'utf-8')
+const productsData = await readFile(join(__dirname, './routes/products.json'), 'utf-8')
+const userData = await readFile(join(__dirname, './routes/users.json'), 'utf-8')
+
+const docs = JSON.parse(docsData)
+const root = JSON.parse(rootData)
+const auth = JSON.parse(authData)
+const products = JSON.parse(productsData)
+const user = JSON.parse(userData)
 
 docs.server = `${environment.ORIGIN_URL}/api/crud`
-
-console.log(docs.server)
 
 docs.paths = {
   ...root,
   ...auth,
-  ...prodcuts,
+  ...products,
   ...user
 }
 
