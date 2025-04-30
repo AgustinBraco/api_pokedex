@@ -24,3 +24,5 @@ app.use('/api/crud', router)
 
 // Server
 app.listen(environment.PORT, () => console.log('Service running on port 5000'))
+
+export default app

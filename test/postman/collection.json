@@ -426,7 +426,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{crud}}/api/crud/products/680d4436329d151430bdaa8d",
+							"raw": "{{crud}}/api/crud/products/6811a0b0c60e2b455955f877",
 							"host": [
 								"{{crud}}"
 							],
@@ -434,7 +434,7 @@
 								"api",
 								"crud",
 								"products",
-								"680d4436329d151430bdaa8d"
+								"6811a0b0c60e2b455955f877"
 							]
 						}
 					},
@@ -504,7 +504,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{crud}}/api/crud/products/680d4436329d151430bdaa8d",
+							"raw": "{{crud}}/api/crud/products/68104ea63fe9b65555018615",
 							"host": [
 								"{{crud}}"
 							],
@@ -512,7 +512,7 @@
 								"api",
 								"crud",
 								"products",
-								"680d4436329d151430bdaa8d"
+								"68104ea63fe9b65555018615"
 							]
 						}
 					},
@@ -534,7 +534,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{crud}}/api/crud/products/680d4436329d151430bdaa8d",
+							"raw": "{{crud}}/api/crud/products/68104ea63fe9b65555018615",
 							"host": [
 								"{{crud}}"
 							],
@@ -542,7 +542,7 @@
 								"api",
 								"crud",
 								"products",
-								"680d4436329d151430bdaa8d"
+								"68104ea63fe9b65555018615"
 							]
 						}
 					},

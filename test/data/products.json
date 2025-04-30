@@ -1,0 +1,15 @@
+{
+  "valid": {
+    "name": "Producto",
+    "category": "Categoria",
+    "stock": 10,
+    "price": 1000
+  },
+  "invalid": {
+    "name": "Producto",
+    "category": "",
+    "stock": 10,
+    "price": 1000
+  },
+  "invalidID": "6811a0b0c60e2b455955f878"
+}

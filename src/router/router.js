@@ -15,7 +15,8 @@ router.get('/', (req, res) =>
 )
 
 // Docs
-router.use('/docs', isAuth, isAdmin, swaggerUi.serve, swaggerUi.setup(docs))
+// router.use('/docs', isAuth, isAdmin, swaggerUi.serve, swaggerUi.setup(docs))
+router.use('/docs', swaggerUi.serve, swaggerUi.setup(docs))
 
 // Routes
 router.use('/auth', authRoute)

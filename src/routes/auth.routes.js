@@ -64,7 +64,7 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
   // Validate if exist
   const user = await AuthDAO.getUser(email)
   if (!user)
-    return res.status(401).json({
+    return res.status(404).json({
       status: 'error',
       message: 'Email does not exist'
     })

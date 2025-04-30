@@ -1,16 +1,16 @@
 {
-  "id": "fbc2b868-608c-4e25-a124-677770797352",
-  "name": "Local",
+  "id": "6a753be2-59e9-4676-b389-62c768d60535",
+  "name": "Production",
   "values": [
     {
       "key": "resend",
-      "value": "http://localhost:5000",
+      "value": "https://api-resend-zm1n.onrender.com",
       "type": "default",
       "enabled": true
     },
     {
       "key": "crud",
-      "value": "http://localhost:5000",
+      "value": "https://api-crud-frgg.onrender.com",
       "type": "default",
       "enabled": true
     },
@@ -46,6 +46,6 @@
     }
   ],
   "_postman_variable_scope": "environment",
-  "_postman_exported_at": "2025-04-28T07:11:55.153Z",
-  "_postman_exported_using": "Postman/11.42.5"
+  "_postman_exported_at": "2025-04-30T05:45:33.854Z",
+  "_postman_exported_using": "Postman/11.43.1"
 }
