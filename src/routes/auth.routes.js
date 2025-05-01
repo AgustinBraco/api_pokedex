@@ -1,6 +1,7 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import environment from '../environment/environment.js'
+import logger from '../logger.js'
 import AuthDAO from '../DAO/auth.dao.js'
 import UserDTO from '../DTO/user.dto.js'
 import { verifyPassword } from '../utils/encrypt.js'
@@ -13,97 +14,243 @@ import {
 const authRoute = express.Router()
 
 // Check
-authRoute.get('/check', (req, res) =>
-  res.status(200).json({
-    status: 'success',
-    message: 'Auth running correctly'
-  })
-)
+authRoute.get('/check', (req, res) => {
+  try {
+    logger.info('GET /api/crud/auth/check requested')
+
+    const response = {
+      status: 'success',
+      message: 'Auth running correctly'
+    }
+
+    logger.info(
+      `GET /api/crud/auth/check responded with 200, ${JSON.stringify(response)}`
+    )
+
+    return res.status(200).json(response)
+  } catch (error) {
+    const response = {
+      status: 'error',
+      message: 'Internal server error',
+      error: error.message
+    }
+
+    logger.error(
+      `GET /api/crud/auth/check responded with 500, ${JSON.stringify(response)}`
+    )
+
+    return res.status(500).json(response)
+  }
+})
 
 // Register user
 authRoute.post('/register', isValidUser, async (req, res) => {
-  const { firstName, lastName, birthday, gender, email, password } = req.body
+  try {
+    logger.info('POST /api/crud/auth/register requested')
+    let response, data
 
-  // Validate if already exist
-  const userExist = await AuthDAO.getUser(email)
-  if (userExist) {
-    return res.status(409).json({
-      status: 'error',
-      message: 'Email already exist'
+    const { firstName, lastName, birthday, gender, email, password } = req.body
+
+    logger.debug(
+      `Body received: ${JSON.stringify({
+        firstName,
+        lastName,
+        birthday,
+        gender,
+        email,
+        password
+      })}`
+    )
+
+    // Validate if already exist
+    const userExist = await AuthDAO.getUser(email)
+    if (userExist) {
+      response = {
+        status: 'error',
+        message: 'Email already exist'
+      }
+
+      logger.warn(
+        `POST /api/crud/auth/register responded with 409, ${JSON.stringify(
+          response
+        )}`
+      )
+
+      return res.status(409).json(response)
+    }
+
+    // Create user
+    const user = await UserDTO.create({
+      firstName,
+      lastName,
+      birthday,
+      gender,
+      email,
+      password
     })
+    await AuthDAO.createUser(user)
+
+    // Format data and send token
+    data = {
+      email: user.email,
+      role: user.role
+    }
+
+    response = {
+      status: 'success',
+      message: 'User created successfully',
+      token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
+    }
+
+    logger.info(
+      `POST /api/crud/auth/register responded with 200, ${JSON.stringify(
+        response
+      )}`
+    )
+
+    return res.status(200).json(response)
+  } catch (error) {
+    const response = {
+      status: 'error',
+      message: 'Internal server error',
+      error: error.message
+    }
+
+    logger.error(
+      `POST /api/crud/auth/register responded with 500, ${JSON.stringify(
+        response
+      )}`
+    )
+
+    return res.status(500).json(response)
   }
-
-  // Create user
-  const user = await UserDTO.create({
-    firstName,
-    lastName,
-    birthday,
-    gender,
-    email,
-    password
-  })
-  await AuthDAO.createUser(user)
-
-  // Create data and send token
-  const data = {
-    email: user.email,
-    role: user.role
-  }
-
-  return res.status(200).json({
-    status: 'success',
-    message: 'User created successfully',
-    token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
-  })
 })
 
 // Login user
 authRoute.post('/login', isValidLogin, async (req, res) => {
-  const { email, password } = req.body
+  try {
+    logger.info('POST /api/crud/auth/login requested')
+    let response, data
 
-  // Validate if exist
-  const user = await AuthDAO.getUser(email)
-  if (!user)
-    return res.status(404).json({
+    const { email, password } = req.body
+
+    logger.debug(
+      `Body received: ${JSON.stringify({ email, password: '**********' })}`
+    )
+
+    // Validate if exist
+    const user = await AuthDAO.getUser(email)
+    if (!user) {
+      response = {
+        status: 'error',
+        message: 'Email does not exist'
+      }
+
+      logger.warn(
+        `POST /api/crud/auth/login responded with 404, ${JSON.stringify(
+          response
+        )}`
+      )
+
+      return res.status(404).json(response)
+    }
+
+    // Validate password
+    const isValidPassword = await verifyPassword(password, user.password)
+    if (!isValidPassword) {
+      response = {
+        status: 'error',
+        message: 'Invalid credentials'
+      }
+
+      logger.warn(
+        `POST /api/crud/auth/login responded with 401, ${JSON.stringify(
+          response
+        )}`
+      )
+
+      return res.status(401).json(response)
+    }
+
+    // Format data and send token
+    data = {
+      email: user.email,
+      role: user.role
+    }
+
+    response = {
+      status: 'success',
+      message: 'User loged successfully',
+      token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
+    }
+
+    logger.info(
+      `POST /api/crud/auth/login responded with 200, ${JSON.stringify(
+        response
+      )}`
+    )
+
+    return res.status(200).json(response)
+  } catch (error) {
+    const response = {
       status: 'error',
-      message: 'Email does not exist'
-    })
+      message: 'Internal server error',
+      error: error.message
+    }
 
-  // Validate password
-  const isValidPassword = await verifyPassword(password, user.password)
-  if (!isValidPassword)
-    return res.status(401).json({
-      status: 'error',
-      message: 'Invalid credentials'
-    })
+    logger.error(
+      `POST /api/crud/auth/login responded with 500, ${JSON.stringify(
+        response
+      )}`
+    )
 
-  // Create data and send token
-  const data = {
-    email: user.email,
-    role: user.role
+    return res.status(500).json(response)
   }
-
-  return res.status(200).json({
-    status: 'success',
-    message: 'User loged successfully',
-    token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
-  })
 })
 
 // Login admin
 authRoute.post('/login/admin', isValidAdmin, (req, res) => {
-  const { email, role } = req.body
+  try {
+    logger.debug('POST /api/crud/auth/login/admin requested')
+    let response, data
 
-  const data = {
-    email,
-    role
+    const { email, role } = req.body
+    logger.debug(`Body received: ${JSON.stringify({ email, role })}`)
+
+    // Format data and send token
+    data = {
+      email,
+      role
+    }
+
+    response = {
+      status: 'success',
+      message: 'Admin loged successfully',
+      token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
+    }
+
+    logger.debug(
+      `POST /api/crud/auth/login/admin responded with 200, ${JSON.stringify(
+        response
+      )}`
+    )
+
+    return res.status(200).json(response)
+  } catch (error) {
+    const response = {
+      status: 'error',
+      message: 'Internal server error',
+      error: error.message
+    }
+
+    logger.error(
+      `POST /api/crud/auth/login/admin responded with 500, ${JSON.stringify(
+        response
+      )}`
+    )
+
+    return res.status(500).json(response)
   }
-
-  return res.status(200).json({
-    status: 'success',
-    message: 'Admin loged successfully',
-    token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
-  })
 })
 
 export default authRoute
