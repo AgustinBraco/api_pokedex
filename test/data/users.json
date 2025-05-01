@@ -1,1 +1,27 @@
-{}
+{
+  "valid": {
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "birthday": "01/01/2000",
+    "gender": "M",
+    "email": "user@email.com",
+    "password": "user_pass"
+  },
+  "invalid": {
+    "firstName": "Nombre",
+    "lastName": "",
+    "birthday": "01/01/2000",
+    "gender": "M",
+    "email": "user@email.com",
+    "password": "user_pass"
+  },
+  "duplicate": {
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "birthday": "01/01/2000",
+    "gender": "M",
+    "email": "new_user@email.com",
+    "password": "user_pass"
+  },
+  "invalidID": "6811a0b0c60e2b455955f878"
+}

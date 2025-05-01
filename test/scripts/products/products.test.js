@@ -21,12 +21,12 @@ describe('[Products] Check', () => {
 
 describe('[Products] Get all', () => {
   it('200 - Valid', async () => {
-    const response = await supertest(app).get('/api/crud/products/check')
+    const response = await supertest(app).get('/api/crud/products')
 
     expect(response.status).to.equal(200)
     expect(response.body).to.have.property(
       'message',
-      'Products running correctly'
+      'Products retrieved successfully'
     )
   })
 })
@@ -189,7 +189,6 @@ describe('[Products] Delete all', () => {
 
     const response = await supertest(app)
       .delete('/api/crud/products')
-      .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`)
 
     expect(response.status).to.equal(200)

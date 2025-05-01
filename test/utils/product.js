@@ -48,7 +48,6 @@ export class Product {
     if (type) {
       const result = await this.client
         .delete(`/api/crud/products/${products.invalidID}`)
-        .set('Content-Type', 'application/json')
         .set('Authorization', `Bearer ${this.token}`)
 
       const response = JSON.parse(result.res.text)
@@ -58,7 +57,6 @@ export class Product {
 
     const result = await this.client
       .delete(`/api/crud/products/${product._id}`)
-      .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${this.token}`)
 
     const response = JSON.parse(result.res.text)

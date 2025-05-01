@@ -3,6 +3,7 @@ import cors from 'cors'
 import connectDB from './database/database.js'
 import environment from './environment/environment.js'
 import router from './router/router.js'
+import logger from './logger.js'
 
 // Initiate
 const app = express()
@@ -23,6 +24,9 @@ app.use(
 app.use('/api/crud', router)
 
 // Server
-app.listen(environment.PORT, () => console.log('Service running on port 5000'))
+
+app.listen(environment.PORT, () =>
+  logger.info(`Service running on port ${environment.PORT}`)
+)
 
 export default app
