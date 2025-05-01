@@ -9,14 +9,14 @@ const router = express.Router()
 
 // Check
 router.get('/', (req, res) => {
-  logger.info('GET /api/crud requested')
+  logger.info('GET /api/crud received')
 
   const response = {
     status: 'success',
     message: 'Service running correctly'
   }
 
-  logger.info(`GET /api/crud responded with 200, ${JSON.stringify(response)}`)
+  logger.info(`Responded with 200: ${JSON.stringify(response)}`)
 
   return res.status(200).json(response)
 })

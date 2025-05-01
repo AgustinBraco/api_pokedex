@@ -16,16 +16,14 @@ const authRoute = express.Router()
 // Check
 authRoute.get('/check', (req, res) => {
   try {
-    logger.info('GET /api/crud/auth/check requested')
+    logger.info('GET /api/crud/auth/check received')
 
     const response = {
       status: 'success',
       message: 'Auth running correctly'
     }
 
-    logger.info(
-      `GET /api/crud/auth/check responded with 200, ${JSON.stringify(response)}`
-    )
+    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
 
     return res.status(200).json(response)
   } catch (error) {
@@ -35,9 +33,7 @@ authRoute.get('/check', (req, res) => {
       error: error.message
     }
 
-    logger.error(
-      `GET /api/crud/auth/check responded with 500, ${JSON.stringify(response)}`
-    )
+    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
 
     return res.status(500).json(response)
   }
@@ -46,7 +42,7 @@ authRoute.get('/check', (req, res) => {
 // Register user
 authRoute.post('/register', isValidUser, async (req, res) => {
   try {
-    logger.info('POST /api/crud/auth/register requested')
+    logger.info('POST /api/crud/auth/register received')
     let response, data
 
     const { firstName, lastName, birthday, gender, email, password } = req.body
@@ -70,11 +66,7 @@ authRoute.post('/register', isValidUser, async (req, res) => {
         message: 'Email already exist'
       }
 
-      logger.warn(
-        `POST /api/crud/auth/register responded with 409, ${JSON.stringify(
-          response
-        )}`
-      )
+      logger.warn(`Responded with 409: ${JSON.stringify(response)}`)
 
       return res.status(409).json(response)
     }
@@ -103,7 +95,7 @@ authRoute.post('/register', isValidUser, async (req, res) => {
     }
 
     logger.info(
-      `POST /api/crud/auth/register responded with 200, ${JSON.stringify({
+      `Responded with 200: ${JSON.stringify({
         ...response,
         token: '**********'
       })}`
@@ -117,11 +109,7 @@ authRoute.post('/register', isValidUser, async (req, res) => {
       error: error.message
     }
 
-    logger.error(
-      `POST /api/crud/auth/register responded with 500, ${JSON.stringify(
-        response
-      )}`
-    )
+    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
 
     return res.status(500).json(response)
   }
@@ -130,7 +118,7 @@ authRoute.post('/register', isValidUser, async (req, res) => {
 // Login user
 authRoute.post('/login', isValidLogin, async (req, res) => {
   try {
-    logger.info('POST /api/crud/auth/login requested')
+    logger.info('POST /api/crud/auth/login received')
     let response, data
 
     const { email, password } = req.body
@@ -147,11 +135,7 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
         message: 'Email does not exist'
       }
 
-      logger.warn(
-        `POST /api/crud/auth/login responded with 404, ${JSON.stringify(
-          response
-        )}`
-      )
+      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
 
       return res.status(404).json(response)
     }
@@ -164,11 +148,7 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
         message: 'Invalid credentials'
       }
 
-      logger.warn(
-        `POST /api/crud/auth/login responded with 401, ${JSON.stringify(
-          response
-        )}`
-      )
+      logger.warn(`Responded with 401: ${JSON.stringify(response)}`)
 
       return res.status(401).json(response)
     }
@@ -186,7 +166,7 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
     }
 
     logger.info(
-      `POST /api/crud/auth/login responded with 200, ${JSON.stringify({
+      `Responded with 200: ${JSON.stringify({
         ...response,
         token: '**********'
       })}`
@@ -200,11 +180,7 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
       error: error.message
     }
 
-    logger.error(
-      `POST /api/crud/auth/login responded with 500, ${JSON.stringify(
-        response
-      )}`
-    )
+    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
 
     return res.status(500).json(response)
   }
@@ -213,11 +189,11 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
 // Login admin
 authRoute.post('/login/admin', isValidAdmin, (req, res) => {
   try {
-    logger.debug('POST /api/crud/auth/login/admin requested')
+    logger.info('POST /api/crud/auth/login/admin received')
     let response, data
 
     const { email, role } = req.body
-    logger.debug(
+    logger.info(
       `Body received: ${JSON.stringify({
         email: '**********',
         role: '**********'
@@ -236,8 +212,8 @@ authRoute.post('/login/admin', isValidAdmin, (req, res) => {
       token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
     }
 
-    logger.debug(
-      `POST /api/crud/auth/login/admin responded with 200, ${JSON.stringify({
+    logger.info(
+      `Responded with 200: ${JSON.stringify({
         ...response,
         token: '**********'
       })}`
@@ -251,11 +227,7 @@ authRoute.post('/login/admin', isValidAdmin, (req, res) => {
       error: error.message
     }
 
-    logger.error(
-      `POST /api/crud/auth/login/admin responded with 500, ${JSON.stringify(
-        response
-      )}`
-    )
+    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
 
     return res.status(500).json(response)
   }
