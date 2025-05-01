@@ -58,7 +58,7 @@ authRoute.post('/register', isValidUser, async (req, res) => {
         birthday,
         gender,
         email,
-        password
+        password: '**********'
       })}`
     )
 
@@ -103,9 +103,10 @@ authRoute.post('/register', isValidUser, async (req, res) => {
     }
 
     logger.info(
-      `POST /api/crud/auth/register responded with 200, ${JSON.stringify(
-        response
-      )}`
+      `POST /api/crud/auth/register responded with 200, ${JSON.stringify({
+        ...response,
+        token: '**********'
+      })}`
     )
 
     return res.status(200).json(response)
@@ -185,9 +186,10 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
     }
 
     logger.info(
-      `POST /api/crud/auth/login responded with 200, ${JSON.stringify(
-        response
-      )}`
+      `POST /api/crud/auth/login responded with 200, ${JSON.stringify({
+        ...response,
+        token: '**********'
+      })}`
     )
 
     return res.status(200).json(response)
@@ -215,7 +217,12 @@ authRoute.post('/login/admin', isValidAdmin, (req, res) => {
     let response, data
 
     const { email, role } = req.body
-    logger.debug(`Body received: ${JSON.stringify({ email, role })}`)
+    logger.debug(
+      `Body received: ${JSON.stringify({
+        email: '**********',
+        role: '**********'
+      })}`
+    )
 
     // Format data and send token
     data = {
@@ -230,9 +237,10 @@ authRoute.post('/login/admin', isValidAdmin, (req, res) => {
     }
 
     logger.debug(
-      `POST /api/crud/auth/login/admin responded with 200, ${JSON.stringify(
-        response
-      )}`
+      `POST /api/crud/auth/login/admin responded with 200, ${JSON.stringify({
+        ...response,
+        token: '**********'
+      })}`
     )
 
     return res.status(200).json(response)
