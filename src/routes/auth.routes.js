@@ -43,20 +43,9 @@ authRoute.get('/check', (req, res) => {
 authRoute.post('/register', isValidUser, async (req, res) => {
   try {
     logger.info('POST /api/crud/auth/register received')
-    let response, data
 
     const { firstName, lastName, birthday, gender, email, password } = req.body
-
-    logger.debug(
-      `Body received: ${JSON.stringify({
-        firstName,
-        lastName,
-        birthday,
-        gender,
-        email,
-        password: '**********'
-      })}`
-    )
+    let response, data
 
     // Validate if already exist
     const userExist = await AuthDAO.getUser(email)
@@ -119,13 +108,9 @@ authRoute.post('/register', isValidUser, async (req, res) => {
 authRoute.post('/login', isValidLogin, async (req, res) => {
   try {
     logger.info('POST /api/crud/auth/login received')
+
     let response, data
-
     const { email, password } = req.body
-
-    logger.debug(
-      `Body received: ${JSON.stringify({ email, password: '**********' })}`
-    )
 
     // Validate if exist
     const user = await AuthDAO.getUser(email)
@@ -190,15 +175,9 @@ authRoute.post('/login', isValidLogin, async (req, res) => {
 authRoute.post('/login/admin', isValidAdmin, (req, res) => {
   try {
     logger.info('POST /api/crud/auth/login/admin received')
-    let response, data
 
+    let response, data
     const { email, role } = req.body
-    logger.info(
-      `Body received: ${JSON.stringify({
-        email: '**********',
-        role: '**********'
-      })}`
-    )
 
     // Format data and send token
     data = {

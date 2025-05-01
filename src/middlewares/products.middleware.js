@@ -13,6 +13,8 @@ export const isValidProduct = async (req, res, next) => {
     price
   }
 
+  logger.debug(`Body received: ${JSON.stringify(product)}`)
+
   // Validate each field
   for (const field in product) {
     const value = product[field]

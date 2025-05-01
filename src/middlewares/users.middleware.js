@@ -15,6 +15,13 @@ export const isValidUser = async (req, res, next) => {
     password
   }
 
+  logger.debug(
+    `Body received: ${JSON.stringify({
+      ...user,
+      password: '**********'
+    })}`
+  )
+
   // Validate each field
   for (const field in user)
     if (user[field].length <= 0 || typeof user[field] !== 'string') {
