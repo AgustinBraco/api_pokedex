@@ -45,7 +45,12 @@ productsRoute.get('/', async (req, res) => {
       data: products
     }
 
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
+    logger.info(
+      `Responded with 200: ${JSON.stringify({
+        ...response,
+        data: ['...']
+      })}`
+    )
 
     return res.status(200).json(response)
   } catch (error) {
@@ -83,7 +88,12 @@ productsRoute.post('/', isAuth, isAdmin, isValidProduct, async (req, res) => {
       data
     }
 
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
+    logger.info(
+      `Responded with 200: ${JSON.stringify({
+        ...response,
+        data: ['...']
+      })}`
+    )
 
     return res.status(200).json(response)
   } catch (error) {
@@ -155,7 +165,12 @@ productsRoute.get('/:id', async (req, res) => {
       data: product
     }
 
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
+    logger.info(
+      `Responded with 200: ${JSON.stringify({
+        ...response,
+        data: ['...']
+      })}`
+    )
 
     return res.status(200).json(response)
   } catch (error) {
@@ -209,7 +224,12 @@ productsRoute.put('/:id', isAuth, isAdmin, isValidProduct, async (req, res) => {
       data
     }
 
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
+    logger.info(
+      `Responded with 200: ${JSON.stringify({
+        ...response,
+        data: ['...']
+      })}`
+    )
 
     return res.status(200).json(response)
   } catch (error) {

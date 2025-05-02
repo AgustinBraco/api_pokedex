@@ -45,7 +45,12 @@ usersRoute.get('/', isAuth, isAdmin, async (req, res) => {
       data: users
     }
 
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
+    logger.info(
+      `Responded with 200: ${JSON.stringify({
+        ...response,
+        data: ['...']
+      })}`
+    )
 
     res.status(200).json(response)
   } catch (error) {
@@ -99,7 +104,12 @@ usersRoute.post('/', isAuth, isAdmin, isValidUser, async (req, res) => {
       data
     }
 
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
+    logger.info(
+      `Responded with 200: ${JSON.stringify({
+        ...response,
+        data: ['...']
+      })}`
+    )
 
     return res.status(200).json(response)
   } catch (error) {
@@ -170,7 +180,12 @@ usersRoute.get('/:id', isAuth, isAdmin, async (req, res) => {
       data: user
     }
 
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
+    logger.info(
+      `Responded with 200: ${JSON.stringify({
+        ...response,
+        data: ['...']
+      })}`
+    )
 
     return res.status(200).json(response)
   } catch (error) {
@@ -240,7 +255,12 @@ usersRoute.put('/:id', isAuth, isAdmin, isValidUser, async (req, res) => {
       data
     }
 
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
+    logger.info(
+      `Responded with 200: ${JSON.stringify({
+        ...response,
+        data: ['...']
+      })}`
+    )
 
     return res.status(200).json(response)
   } catch (error) {
