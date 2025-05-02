@@ -10,7 +10,8 @@
     "test": "mocha test/scripts/**/*.test.js --timeout 10000 --exit",
     "test:auth": "mocha test/scripts/auth/auth.test.js --timeout 10000 --exit",
     "test:products": "mocha test/scripts/products/products.test.js --timeout 10000 --exit",
-    "test:users": "mocha test/scripts/users/users.test.js --timeout 10000 --exit"
+    "test:users": "mocha test/scripts/users/users.test.js --timeout 10000 --exit",
+    "coverage": "nyc npm test"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
     "swagger-ui-express": "^5.0.1",
