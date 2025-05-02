@@ -154,7 +154,7 @@ productsRoute.get('/:id', async (req, res) => {
         message: 'Product not found'
       }
 
-      logger.info(`Responded with 404: ${JSON.stringify(response)}`)
+      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
 
       return res.status(404).json(response)
     }
@@ -204,7 +204,7 @@ productsRoute.put('/:id', isAuth, isAdmin, isValidProduct, async (req, res) => {
         message: 'Product not found'
       }
 
-      logger.info(`Responded with 404: ${JSON.stringify(response)}`)
+      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
 
       return res.status(404).json(response)
     }
@@ -261,7 +261,7 @@ productsRoute.delete('/:id', isAuth, isAdmin, async (req, res) => {
         message: 'Product not found'
       }
 
-      logger.info(`Responded with 404: ${JSON.stringify(response)}`)
+      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
 
       return res.status(404).json(response)
     }

@@ -82,7 +82,7 @@ usersRoute.post('/', isAuth, isAdmin, isValidUser, async (req, res) => {
         message: 'Email already exist'
       }
 
-      logger.info(`Responded with 409: ${JSON.stringify(response)}`)
+      logger.warn(`Responded with 409: ${JSON.stringify(response)}`)
 
       return res.status(409).json(response)
     }
@@ -169,7 +169,7 @@ usersRoute.get('/:id', isAuth, isAdmin, async (req, res) => {
         message: 'User not found'
       }
 
-      logger.info(`Responded with 404: ${JSON.stringify(response)}`)
+      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
 
       return res.status(404).json(response)
     }
@@ -219,7 +219,7 @@ usersRoute.put('/:id', isAuth, isAdmin, isValidUser, async (req, res) => {
         message: 'User not found'
       }
 
-      logger.info(`Responded with 404: ${JSON.stringify(response)}`)
+      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
 
       return res.status(404).json(response)
     }
@@ -232,7 +232,7 @@ usersRoute.put('/:id', isAuth, isAdmin, isValidUser, async (req, res) => {
         message: 'Email already exist'
       }
 
-      logger.info(`Responded with 409: ${JSON.stringify(response)}`)
+      logger.warn(`Responded with 409: ${JSON.stringify(response)}`)
 
       return res.status(409).json(response)
     }
@@ -292,7 +292,7 @@ usersRoute.delete('/:id', isAuth, isAdmin, async (req, res) => {
         message: 'User not found'
       }
 
-      logger.info(`Responded with 404: ${JSON.stringify(response)}`)
+      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
 
       return res.status(404).json(response)
     }
