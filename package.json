@@ -10,8 +10,7 @@
     "test": "mocha test/scripts/**/*.test.js --timeout 10000 --exit",
     "test:auth": "mocha test/scripts/auth/auth.test.js --timeout 10000 --exit",
     "test:products": "mocha test/scripts/products/products.test.js --timeout 10000 --exit",
-    "test:users": "mocha test/scripts/users/users.test.js --timeout 10000 --exit",
-    "coverage": "nyc npm test"
+    "test:users": "mocha test/scripts/users/users.test.js --timeout 10000 --exit"
   },
   "keywords": [],
   "author": "",
