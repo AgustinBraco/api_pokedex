@@ -1,7 +1,7 @@
 import logger from '../logger/logger.js'
 
 export const isValidProduct = async (req, res, next) => {
-  logger.info(`Product middleware ${req.method} ${req.originalUrl} received`)
+  logger.info(`Product middleware receive ${req.method} ${req.originalUrl}`)
 
   // Get info and create product
   const { name, category, stock, price } = req.body

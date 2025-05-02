@@ -1,7 +1,7 @@
 import logger from '../logger/logger.js'
 
 export const isValidUser = async (req, res, next) => {
-  logger.info(`User middleware ${req.method} ${req.originalUrl} received`)
+  logger.info(`User middleware receive ${req.method} ${req.originalUrl}`)
 
   // Get info and create user
   const { firstName, lastName, birthday, gender, email, password } = req.body

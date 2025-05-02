@@ -3,7 +3,9 @@ import environment from '../environment/environment.js'
 import logger from '../logger/logger.js'
 
 export const isValidLogin = (req, res, next) => {
-  logger.info(`Login middleware ${req.method} ${req.originalUrl} received`)
+  logger.info(
+    `Login middleware receive receive ${req.method} ${req.originalUrl}`
+  )
 
   const { email, password } = req.body
 
@@ -34,7 +36,7 @@ export const isValidLogin = (req, res, next) => {
 }
 
 export const isValidAdmin = (req, res, next) => {
-  logger.info(`Admin middleware ${req.method} ${req.originalUrl} received`)
+  logger.info(`Admin middleware receive ${req.method} ${req.originalUrl}`)
 
   const { admin_key } = req.headers
   const { email, password, role } = req.body
@@ -62,7 +64,7 @@ export const isValidAdmin = (req, res, next) => {
 }
 
 export const isAuth = (req, res, next) => {
-  logger.info(`Auth middleware ${req.method} ${req.originalUrl} received`)
+  logger.info(`Auth middleware receive ${req.method} ${req.originalUrl}`)
 
   // Get and format token
   const authorization = req.headers['authorization']
@@ -87,7 +89,7 @@ export const isAuth = (req, res, next) => {
 }
 
 export const isAdmin = (req, res, next) => {
-  logger.info(`Admin middleware ${req.method} ${req.originalUrl} received`)
+  logger.info(`Admin middleware receive ${req.method} ${req.originalUrl}`)
 
   // Get and format token
   const authorization = req.headers['authorization']
