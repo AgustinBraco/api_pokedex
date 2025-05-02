@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import environment from '../environment/environment.js'
-import logger from '../logger.js'
+import logger from '../logger/logger.js'
 
 export const isValidLogin = (req, res, next) => {
   logger.info(`Login middleware ${req.method} ${req.originalUrl} received`)

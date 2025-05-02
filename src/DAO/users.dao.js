@@ -1,5 +1,5 @@
 import { UserModel } from '../database/schemas/user.schema.js'
-import logger from '../logger.js'
+import logger from '../logger/logger.js'
 
 class UserDAO {
   async getAll() {

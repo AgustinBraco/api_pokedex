@@ -1,7 +1,7 @@
 import express from 'express'
 import swaggerUi from 'swagger-ui-express'
 import docs from '../docs/docs.js'
-import logger from '../logger.js'
+import logger from '../logger/logger.js'
 import { authRoute, usersRoute, productsRoute } from '../routes/routes.js'
 import { isAuth, isAdmin } from '../middlewares/middlewares.js'
 

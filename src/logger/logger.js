@@ -1,49 +1,48 @@
 import winston from 'winston'
 import path from 'path'
-import environment from './environment/environment.js'
+import environment from '../environment/environment.js'
 
 // Setup
 const transports = []
 const logDir = path.join(process.cwd(), 'logs')
-const isLocal = environment.ORIGIN_URL.includes('localhost')
 
-if (isLocal) {
+// Logs format
+const customFormat = winston.format.combine(
+  winston.format.timestamp(),
+  winston.format.json()
+)
+
+// Local (full and reduced)
+const useFiles = () =>
   transports.push(
-    // Local - Full
     new winston.transports.File({
       filename: path.join(logDir, 'full.log'),
       level: 'debug',
       handleExceptions: true,
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json()
-      )
+      format: customFormat
     }),
 
-    // Local - Reduced
     new winston.transports.File({
       filename: path.join(logDir, 'reduced.log'),
       level: 'info',
       handleExceptions: true,
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json()
-      )
+      format: customFormat
     })
   )
-} else {
-  // Production - Full
+
+// Production (full)
+const useConsole = () =>
   transports.push(
     new winston.transports.Console({
       level: 'debug',
       handleExceptions: true,
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple()
-      )
+      format: customFormat
     })
   )
-}
+
+// Select environment
+const isLocal = environment.ORIGIN_URL.includes('localhost')
+isLocal ? useFiles() : useConsole()
 
 const logger = winston.createLogger({
   level: 'debug',

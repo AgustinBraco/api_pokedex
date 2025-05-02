@@ -1,4 +1,4 @@
-import logger from '../logger.js'
+import logger from '../logger/logger.js'
 
 export const isValidUser = async (req, res, next) => {
   logger.info(`User middleware ${req.method} ${req.originalUrl} received`)

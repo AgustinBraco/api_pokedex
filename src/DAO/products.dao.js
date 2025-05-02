@@ -1,5 +1,5 @@
 import { ProductModel } from '../database/schemas/product.schema.js'
-import logger from '../logger.js'
+import logger from '../logger/logger.js'
 
 class ProductDAO {
   async getAll() {

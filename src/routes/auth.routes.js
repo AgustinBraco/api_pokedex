@@ -1,7 +1,7 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import environment from '../environment/environment.js'
-import logger from '../logger.js'
+import logger from '../logger/logger.js'
 import AuthDAO from '../DAO/auth.dao.js'
 import UserDTO from '../DTO/user.dto.js'
 import { verifyPassword } from '../utils/encrypt.js'

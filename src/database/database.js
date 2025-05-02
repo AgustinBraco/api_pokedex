@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import environment from '../environment/environment.js'
-import logger from '../logger.js'
+import logger from '../logger/logger.js'
 
 const connectDB = async () => {
   try {

@@ -3,7 +3,7 @@ import cors from 'cors'
 import connectDB from './database/database.js'
 import environment from './environment/environment.js'
 import router from './router/router.js'
-import logger from './logger.js'
+import logger from './logger/logger.js'
 
 // Initiate
 const app = express()

@@ -1,4 +1,4 @@
-import logger from '../logger.js'
+import logger from '../logger/logger.js'
 
 export const isValidProduct = async (req, res, next) => {
   logger.info(`Product middleware ${req.method} ${req.originalUrl} received`)

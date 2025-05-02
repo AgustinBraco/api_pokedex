@@ -1,4 +1,5 @@
 import express from 'express'
+import logger from '../logger/logger.js'
 import ProductDAO from '../DAO/products.dao.js'
 import ProductDTO from '../DTO/product.dto.js'
 import { isAuth, isAdmin, isValidProduct } from '../middlewares/middlewares.js'
@@ -6,12 +7,30 @@ import { isAuth, isAdmin, isValidProduct } from '../middlewares/middlewares.js'
 const productsRoute = express.Router()
 
 // Check
-productsRoute.get('/check', (req, res) =>
-  res.status(200).json({
-    status: 'success',
-    message: 'Products running correctly'
-  })
-)
+productsRoute.get('/check', (req, res) => {
+  try {
+    logger.info('GET /api/crud/products/check received')
+
+    const response = {
+      status: 'success',
+      message: 'Products running correctly'
+    }
+
+    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
+
+    return res.status(200).json(response)
+  } catch (error) {
+    const response = {
+      status: 'error',
+      message: 'Internal server error',
+      error: error.message
+    }
+
+    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
+
+    return res.status(500).json(response)
+  }
+})
 
 // Retrieve all products
 productsRoute.get('/', async (req, res) => {
