@@ -9,9 +9,7 @@ const environment = {
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
   ADMIN_KEY: process.env.ADMIN_KEY,
-  ADMIN_ROLE: process.env.ADMIN_ROLE,
-  DB_USER: process.env.DB_USER,
-  DB_PASSWORD: process.env.DB_PASSWORD
+  ADMIN_ROLE: process.env.ADMIN_ROLE
 }
 
 export default environment

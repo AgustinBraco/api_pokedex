@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import environment from '../environment/environment.js'
 import logger from '../logger/logger.js'
+import { Responses } from '../utils/utils.js'
 
 export const isValidLogin = (req, res, next) => {
   logger.info(
@@ -9,10 +10,6 @@ export const isValidLogin = (req, res, next) => {
 
   const { email, password } = req.body
 
-  logger.debug(
-    `Body received: ${JSON.stringify({ email, password: '**********' })}`
-  )
-
   // Validate credentials
   const isInvalidCredentials =
     email.length <= 0 ||
@@ -20,16 +17,8 @@ export const isValidLogin = (req, res, next) => {
     password.length <= 0 ||
     typeof password !== 'string'
 
-  if (isInvalidCredentials) {
-    const response = {
-      status: 'error',
-      message: `Invalid email or password`
-    }
-
-    logger.warn(`Responded with 400: ${JSON.stringify(response)}`)
-
-    return res.status(400).json(response)
-  }
+  if (isInvalidCredentials)
+    return Responses.badRequest(res, `Invalid email or password`)
 
   logger.info(`Login middleware passed`)
   next()
@@ -48,16 +37,7 @@ export const isValidAdmin = (req, res, next) => {
     role !== environment.ADMIN_ROLE ||
     admin_key !== environment.ADMIN_KEY
 
-  if (isInvalidAdmin) {
-    const response = {
-      status: 'error',
-      message: 'Invalid credentials'
-    }
-
-    logger.warn(`Responded with 401: ${JSON.stringify(response)}`)
-
-    return res.status(401).json(response)
-  }
+  if (isInvalidAdmin) return Responses.unauthorized(res, `Invalid credentials`)
 
   logger.info(`Admin middleware passed`)
   next()
@@ -66,22 +46,12 @@ export const isValidAdmin = (req, res, next) => {
 export const isAuth = (req, res, next) => {
   logger.info(`Auth middleware receive ${req.method} ${req.originalUrl}`)
 
-  // Get and format token
+  // Get, format and validate token
   const authorization = req.headers['authorization']
   const token = authorization?.split(' ')[1]
 
-  // Verify token
-  jwt.verify(token, environment.JWT_SECRET, (error, user) => {
-    if (error) {
-      const response = {
-        status: 'error',
-        message: 'Invalid or missing token'
-      }
-
-      logger.warn(`Responded with 401: ${JSON.stringify(response)}`)
-
-      return res.status(401).json(response)
-    }
+  jwt.verify(token, environment.JWT_SECRET, error => {
+    if (error) return Responses.unauthorized(res, `Invalid or missing token`)
 
     logger.info(`Auth middleware passed`)
     next()
@@ -91,36 +61,16 @@ export const isAuth = (req, res, next) => {
 export const isAdmin = (req, res, next) => {
   logger.info(`Admin middleware receive ${req.method} ${req.originalUrl}`)
 
-  // Get and format token
+  // Get, format and validate token
   const authorization = req.headers['authorization']
   const token = authorization?.split(' ')[1]
 
-  // Verify token
   jwt.verify(token, environment.JWT_SECRET, (error, user) => {
-    if (error) {
-      const response = {
-        status: 'error',
-        message: 'Invalid or missing token'
-      }
-
-      logger.warn(`Responded with 401: ${JSON.stringify(response)}`)
-
-      return res.status(401).json(response)
-    }
+    if (error) return Responses.unauthorized(res, `Invalid or missing token`)
 
     // Verify role
     const isNotAdmin = user.role !== environment.ADMIN_ROLE
-
-    if (isNotAdmin) {
-      const response = {
-        status: 'error',
-        message: 'Access denied'
-      }
-
-      logger.warn(`Responded with 403: ${JSON.stringify(response)}`)
-
-      return res.status(403).json(response)
-    }
+    if (isNotAdmin) return Responses.forbidden(res, `Access denied`)
 
     logger.info(`Admin middleware passed`)
     next()

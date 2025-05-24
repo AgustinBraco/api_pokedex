@@ -1,6 +1,6 @@
-import { setup } from './setup.js'
 import { Auth } from './auth.js'
-import { Product } from './product.js'
 import { User } from './user.js'
+import { Pokedex } from './pokedex.js'
+import { setup } from './setup.js'
 
-export { setup, Auth, Product, User }
+export { setup, Auth, User, Pokedex }

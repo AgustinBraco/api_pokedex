@@ -1,634 +1,509 @@
 {
-	"info": {
-		"_postman_id": "f27dadae-057b-4795-90aa-9b80dec6bba6",
-		"name": "API CRUD",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "27426307"
-	},
-	"item": [
-		{
-			"name": "Auth",
-			"item": [
-				{
-					"name": "Check",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/auth/check",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"auth",
-								"check"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Register",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Nombre\",\r\n    \"lastName\": \"Apellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{crud}}/api/crud/auth/register",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{crud}}/api/crud/auth/login",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login admin",
-					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ADMIN_KEY}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "admin_key",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"{{ADMIN_EMAIL}}\",\r\n    \"password\": \"{{ADMIN_PASSWORD}}\",\r\n    \"role\": \"{{ADMIN_ROLE}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{crud}}/api/crud/auth/login/admin",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"auth",
-								"login",
-								"admin"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "Check",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/users/check",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"users",
-								"check"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/users/",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"users",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get by ID",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/users/680f1cf2cb1879aec48d80a2",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"users",
-								"680f1cf2cb1879aec48d80a2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Nombre\",\r\n    \"lastName\": \"Apellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{crud}}/api/crud/users/",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"users",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update by ID",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Nuevo Nombre\",\r\n    \"lastName\": \"Nuevo Apellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{crud}}/api/crud/users/680f276b044863809814158a",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"users",
-								"680f276b044863809814158a"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete by ID",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/users/680f276b044863809814158d",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"users",
-								"680f276b044863809814158d"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete all",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/users/",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"users",
-								""
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Products",
-			"item": [
-				{
-					"name": "Check",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/products/check",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"products",
-								"check"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/products",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get by ID",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/products/6811a0b0c60e2b455955f877",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"products",
-								"6811a0b0c60e2b455955f877"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Producto\",\r\n    \"category\": \"Categoria\",\r\n    \"stock\": 10,\r\n    \"price\": 1000\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{crud}}/api/crud/products/",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"products",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update by ID",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nuevo Producto\",\r\n    \"category\": \"Nueva Categoria\",\r\n    \"stock\": 30,\r\n    \"price\": 3000\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{crud}}/api/crud/products/68104ea63fe9b65555018615",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"products",
-								"68104ea63fe9b65555018615"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete by ID",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/products/68104ea63fe9b65555018615",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"products",
-								"68104ea63fe9b65555018615"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete all",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{crud}}/api/crud/products/",
-							"host": [
-								"{{crud}}"
-							],
-							"path": [
-								"api",
-								"crud",
-								"products",
-								""
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Check",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{crud}}/api/crud",
-					"host": [
-						"{{crud}}"
-					],
-					"path": [
-						"api",
-						"crud"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Docs",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{crud}}/api/crud/docs",
-					"host": [
-						"{{crud}}"
-					],
-					"path": [
-						"api",
-						"crud",
-						"docs"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "3abfb1f8-6535-41d3-9f2c-6f0464a547e8",
+    "name": "API Pokedex",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "27426307"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Check",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/auth/check",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "auth", "check"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"first_name\": \"Nombre\",\r\n    \"last_name\": \"Apellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/auth/register",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/auth/login",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login admin",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{ADMIN_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "admin_key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"{{ADMIN_EMAIL}}\",\r\n    \"password\": \"{{ADMIN_PASSWORD}}\",\r\n    \"role\": \"{{ADMIN_ROLE}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/auth/login/admin",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "auth", "login", "admin"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pokedex",
+      "item": [
+        {
+          "name": "Check",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/check",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "check"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete all",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"charmander\",\r\n    \"image\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png\",\r\n    \"types\": [\r\n        \"fire\",\r\n        \"\"\r\n    ],\r\n    \"category\": \"Common\",\r\n    \"generation\": \"i\",\r\n    \"height\": 0.6,\r\n    \"weight\": 8.5,\r\n    \"stats\": {\r\n        \"hp\": 39,\r\n        \"speed\": 65,\r\n        \"attack\": 52,\r\n        \"special_attack\": 60,\r\n        \"defense\": 43,\r\n        \"special_defense\": 50\r\n    },\r\n    \"level\": 98\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get by name",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/charmander",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "charmander"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete by name",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/charmander",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "charmander"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upgrade by name",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/charmander",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "charmander"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search by name",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/search/pikachu",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "search", "pikachu"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Check",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{crud}}/api/pokedex/users/check",
+              "host": ["{{crud}}"],
+              "path": ["api", "pokedex", "users", "check"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/users/all",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "users", "all"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete all",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/users/all",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "users", "all"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"first_name\": \"Nombre\",\r\n    \"last_name\": \"Apellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/users/",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "users", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/users/1",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "users", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"first_name\": \"Nuevo Nombre\",\r\n    \"last_name\": \"Nuevo Apellido\",\r\n    \"birthday\": \"01/01/2000\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"new_user@email.com\",\r\n    \"password\": \"user_pass\" \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/users/1",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "users", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/users/1",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "users", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Docs",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{pokedex}}/api/pokedex/docs/show",
+          "host": ["{{pokedex}}"],
+          "path": ["api", "pokedex", "docs", "show"]
+        }
+      },
+      "response": []
+    }
+  ]
 }

@@ -1,17 +1,55 @@
-import mongoose from 'mongoose'
-import environment from '../environment/environment.js'
+import sqlite3 from 'sqlite3'
 import logger from '../logger/logger.js'
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(
-      `mongodb+srv://${environment.DB_USER}:${environment.DB_PASSWORD}@cluster0.gtrolit.mongodb.net/api_crud?retryWrites=true&w=majority&appName=Cluster0`
-    )
-    logger.info(`Database connected successfully`)
-  } catch (error) {
-    logger.error(`Error when connecting with database: ${error.message}`)
-    process.exit(1)
-  }
-}
+sqlite3.verbose()
 
-export default connectDB
+// Create database
+const database = new sqlite3.Database(':memory:', error => {
+  if (error) return logger.error(`Error creating database: ${error.message}`)
+
+  logger.info('Database created successfully')
+
+  // Pokedex
+  database.run(
+    `CREATE TABLE pokedex (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    image TEXT NOT NULL,
+    types TEXT NOT NULL,
+    category TEXT NOT NULL,
+    generation TEXT NOT NULL,
+    height REAL NOT NULL,
+    weight REAL NOT NULL,
+    stats TEXT NOT NULL,
+    level INTEGER NOT NULL
+  )`,
+    error => {
+      if (error)
+        return logger.error(`Error creating table "pokedex": ${error.message}`)
+
+      logger.info('Table "pokedex" created')
+    }
+  )
+
+  // Users
+  database.run(
+    `CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    birthday TEXT NOT NULL,
+    gender TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role TEXT NOT NULL
+  )`,
+    error => {
+      if (error)
+        return logger.error(`Error creating table "users": ${error.message}`)
+
+      logger.info('Table "users" created')
+    }
+  )
+})
+
+export default database

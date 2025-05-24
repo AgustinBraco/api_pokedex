@@ -1,27 +1,40 @@
 {
   "valid": {
-    "firstName": "Nombre",
-    "lastName": "Apellido",
+    "first_name": "Nombre",
+    "last_name": "Apellido",
     "birthday": "01/01/2000",
     "gender": "M",
     "email": "user@email.com",
     "password": "user_pass"
   },
   "invalid": {
-    "firstName": "Nombre",
-    "lastName": "",
+    "first_name": "Nombre",
+    "last_name": "",
     "birthday": "01/01/2000",
     "gender": "M",
     "email": "user@email.com",
     "password": "user_pass"
   },
   "duplicate": {
-    "firstName": "Nombre",
-    "lastName": "Apellido",
+    "first_name": "Nombre",
+    "last_name": "Apellido",
     "birthday": "01/01/2000",
     "gender": "M",
     "email": "new_user@email.com",
     "password": "user_pass"
   },
-  "invalidID": "6811a0b0c60e2b455955f878"
+  "notFound": {
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "birthday": "01/01/2000",
+    "gender": "M",
+    "email": "user@email.com",
+    "password": "user_pass"
+  },
+  "id": {
+    "valid": 1,
+    "invalid": 100,
+    "duplicate": 1,
+    "notFound": 10
+  }
 }

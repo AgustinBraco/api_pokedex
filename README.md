@@ -1,9 +1,9 @@
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=d9d9d9&height=120&section=header"/>
 
-# API CRUD
+# API Pokedex
 
 <div>
-API RESTful para la gestión de tareas con operaciones CRUD (Crear, Leer, Actualizar y Eliminar). Desarrollada con Express y MongoDB (vía Mongoose), incorpora autenticación con JWT, encriptación de contraseñas con bcryptjs, y medidas de seguridad como Helmet y rate limiting. Documentada con Swagger y diseñada para integrarse fácilmente con un frontend. Incluye un entorno de pruebas con Mocha, Chai y Supertest, y utiliza Winston para el manejo de logs. Ideal para proyectos que requieren lógica de negocio robusta, persistencia de datos y control de acceso seguro.
+API RESTful para la gestión de una Pokedex con operaciones CRUD (Crear, Leer, Actualizar y Eliminar) de Pokemon en una base de datos SQLite. Desarrollada con Express, incluye autenticación mediante JWT, encriptación de contraseñas con bcryptjs, y medidas de seguridad como Helmet, CORS y rate limiting. Documentada con Swagger UI para facilitar la integración y el uso. Cuenta con un entorno de pruebas configurado con Mocha, Chai y Supertest, y utiliza Winston para el manejo y registro de logs. Ideal para proyectos que requieren gestión segura y eficiente de datos de pokemones, con control de acceso y protección contra ataques comunes.
 </div>
 
 <hr>
@@ -17,8 +17,8 @@ API RESTful para la gestión de tareas con operaciones CRUD (Crear, Leer, Actual
 <img alt="Express" src="https://img.shields.io/badge/Express-808080?style=for-the-badge&logo=express&logoColor=d9d9d9">
 
 <h4>Base de datos</h4>
-<img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-808080?style=for-the-badge&logo=MongoDB&logoColor=d9d9d9">
-<img alt="Mongoose" src="https://img.shields.io/badge/Mongoose-808080?style=for-the-badge&logo=Mongoose&logoColor=d9d9d9">
+<img alt="SQL" src="https://img.shields.io/badge/SQL-808080?style=for-the-badge&logo=databricks&logoColor=d9d9d9">
+<img alt="SQLite" src="https://img.shields.io/badge/SQLite-808080?style=for-the-badge&logo=SQLite&logoColor=d9d9d9">
 
 <h4>Seguridad y middlewares</h4>
 <img alt="Cors" src="https://img.shields.io/badge/Cors-808080?style=for-the-badge&logo=coursera&logoColor=d9d9d9">

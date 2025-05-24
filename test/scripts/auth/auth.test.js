@@ -9,7 +9,7 @@ setup()
 // Tests by endpoint
 describe('[Auth] Check', () => {
   it('200 - Running', async () => {
-    const response = await supertest(app).get('/api/crud/auth/check')
+    const response = await supertest(app).get('/api/pokedex/auth/check')
 
     expect(response.status).to.equal(200)
     expect(response.body).to.have.property('message', 'Auth running correctly')
@@ -35,11 +35,11 @@ describe('[Auth] Register', () => {
     expect(response.status).to.equal(400)
     expect(response.body).to.have.property(
       'message',
-      "Invalid field 'lastName'"
+      "Invalid field 'last_name'"
     )
   })
 
-  it('409 - Incorrect', async () => {
+  it('409 - Duplicate', async () => {
     const auth = new Auth()
     await auth.register('valid')
     const response = await auth.register('valid')

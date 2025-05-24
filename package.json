@@ -9,8 +9,8 @@
     "dev": "nodemon src/index.js",
     "test": "mocha test/scripts/**/*.test.js --timeout 10000 --exit",
     "test:auth": "mocha test/scripts/auth/auth.test.js --timeout 10000 --exit",
-    "test:products": "mocha test/scripts/products/products.test.js --timeout 10000 --exit",
-    "test:users": "mocha test/scripts/users/users.test.js --timeout 10000 --exit"
+    "test:users": "mocha test/scripts/users/users.test.js --timeout 10000 --exit",
+    "test:pokedex": "mocha test/scripts/pokedex/pokedex.test.js --timeout 10000 --exit"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +23,7 @@
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.13.2",
+    "sqlite3": "^5.1.7",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0"
   },

@@ -1,5 +1,5 @@
 import { isValidUser } from './users.middleware.js'
-import { isValidProduct } from './products.middleware.js'
+import { isValidPokemon } from './pokedex.middleware.js'
 import {
   isValidLogin,
   isValidAdmin,
@@ -8,8 +8,8 @@ import {
 } from './auth.middleware.js'
 
 export {
+  isValidPokemon,
   isValidUser,
-  isValidProduct,
   isValidLogin,
   isValidAdmin,
   isAuth,

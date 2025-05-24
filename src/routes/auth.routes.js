@@ -5,65 +5,42 @@ import logger from '../logger/logger.js'
 import AuthDAO from '../DAO/auth.dao.js'
 import UserDTO from '../DTO/user.dto.js'
 import { verifyPassword } from '../utils/encrypt.js'
+import { Responses } from '../utils/utils.js'
 import {
   isValidUser,
   isValidLogin,
   isValidAdmin
 } from '../middlewares/middlewares.js'
 
-const authRoute = express.Router()
+const auth = express.Router()
 
 // Check
-authRoute.get('/check', (req, res) => {
+auth.get('/check', (req, res) => {
   try {
-    logger.info('GET /api/crud/auth/check received')
-
-    const response = {
-      status: 'success',
-      message: 'Auth running correctly'
-    }
-
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
-
-    return res.status(200).json(response)
+    logger.info('GET /api/pokedex/auth/check received')
+    return Responses.success(res, 'Auth running correctly')
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
 // Register user
-authRoute.post('/register', isValidUser, async (req, res) => {
+auth.post('/register', isValidUser, async (req, res) => {
   try {
-    logger.info('POST /api/crud/auth/register received')
+    logger.info('POST /api/pokedex/auth/register received')
 
-    const { firstName, lastName, birthday, gender, email, password } = req.body
-    let response, data
+    let user, token
+    const { first_name, last_name, birthday, gender, email, password } =
+      req.body
 
     // Validate if already exist
-    const userExist = await AuthDAO.getUser(email)
-    if (userExist) {
-      response = {
-        status: 'error',
-        message: 'Email already exist'
-      }
-
-      logger.warn(`Responded with 409: ${JSON.stringify(response)}`)
-
-      return res.status(409).json(response)
-    }
+    user = await AuthDAO.getUser(email)
+    if (user) return Responses.conflict(res, 'Email already exist')
 
     // Create user
-    const user = await UserDTO.create({
-      firstName,
-      lastName,
+    user = await UserDTO.create({
+      first_name,
+      last_name,
       birthday,
       gender,
       email,
@@ -71,145 +48,77 @@ authRoute.post('/register', isValidUser, async (req, res) => {
     })
     await AuthDAO.createUser(user)
 
-    // Format data and send token
-    data = {
-      email: user.email,
-      role: user.role
-    }
-
-    response = {
-      status: 'success',
-      message: 'User created successfully',
-      token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
-    }
-
-    logger.info(
-      `Responded with 200: ${JSON.stringify({
-        ...response,
-        token: '**********'
-      })}`
+    // Create and respond token
+    token = jwt.sign(
+      {
+        email: user.email,
+        role: user.role
+      },
+      environment.JWT_SECRET,
+      { expiresIn: '1h' }
     )
 
-    return res.status(200).json(response)
+    return Responses.success(res, 'User created successfully', token)
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
 // Login user
-authRoute.post('/login', isValidLogin, async (req, res) => {
+auth.post('/login', isValidLogin, async (req, res) => {
   try {
-    logger.info('POST /api/crud/auth/login received')
+    logger.info('POST /api/pokedex/auth/login received')
 
-    let response, data
     const { email, password } = req.body
+    let user, token
 
     // Validate if exist
-    const user = await AuthDAO.getUser(email)
-    if (!user) {
-      response = {
-        status: 'error',
-        message: 'Email does not exist'
-      }
-
-      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
-
-      return res.status(404).json(response)
-    }
+    user = await AuthDAO.getUser(email)
+    if (!user) return Responses.notFound(res, 'Email does not exist')
 
     // Validate password
     const isValidPassword = await verifyPassword(password, user.password)
-    if (!isValidPassword) {
-      response = {
-        status: 'error',
-        message: 'Invalid credentials'
-      }
+    if (!isValidPassword)
+      return Responses.unauthorized(res, 'Invalid credentials')
 
-      logger.warn(`Responded with 401: ${JSON.stringify(response)}`)
-
-      return res.status(401).json(response)
-    }
-
-    // Format data and send token
-    data = {
-      email: user.email,
-      role: user.role
-    }
-
-    response = {
-      status: 'success',
-      message: 'User loged successfully',
-      token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
-    }
-
-    logger.info(
-      `Responded with 200: ${JSON.stringify({
-        ...response,
-        token: '**********'
-      })}`
+    // Create and respond token
+    token = jwt.sign(
+      {
+        email: user.email,
+        role: user.role
+      },
+      environment.JWT_SECRET,
+      { expiresIn: '1h' }
     )
 
-    return res.status(200).json(response)
+    return Responses.success(res, 'User loged successfully', token)
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
 // Login admin
-authRoute.post('/login/admin', isValidAdmin, (req, res) => {
+auth.post('/login/admin', isValidAdmin, (req, res) => {
   try {
-    logger.info('POST /api/crud/auth/login/admin received')
+    logger.info('POST /api/pokedex/auth/login/admin received')
 
-    let response, data
+    let token
     const { email, role } = req.body
 
-    // Format data and send token
-    data = {
-      email,
-      role
-    }
-
-    response = {
-      status: 'success',
-      message: 'Admin loged successfully',
-      token: jwt.sign(data, environment.JWT_SECRET, { expiresIn: '1h' })
-    }
-
-    logger.info(
-      `Responded with 200: ${JSON.stringify({
-        ...response,
-        token: '**********'
-      })}`
+    // Create and respond token
+    token = jwt.sign(
+      {
+        email,
+        role
+      },
+      environment.JWT_SECRET,
+      { expiresIn: '1h' }
     )
 
-    return res.status(200).json(response)
+    return Responses.success(res, 'Admin loged successfully', token)
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
-export default authRoute
+export default auth

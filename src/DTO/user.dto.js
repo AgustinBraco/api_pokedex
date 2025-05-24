@@ -2,8 +2,8 @@ import { encryptPassword } from '../utils/encrypt.js'
 
 class UserDTO {
   constructor(user) {
-    this.firstName = user.firstName
-    this.lastName = user.lastName
+    this.first_name = user.first_name
+    this.last_name = user.last_name
     this.birthday = user.birthday
     this.gender = user.gender
     this.email = user.email

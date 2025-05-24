@@ -1,8 +1,8 @@
 {
-  "/users/check": {
+  "/pokedex/check": {
     "get": {
-      "tags": ["Users"],
-      "summary": "Verify if users route is running",
+      "tags": ["Pokedex"],
+      "summary": "Verify if pokedex route is running",
       "responses": {
         "200": {
           "description": "SUCCESS",
@@ -17,13 +17,13 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "Users running correctly"
+                    "example": "Pokedex running correctly"
                   }
                 }
               },
               "example": {
                 "status": "success",
-                "message": "Users running correctly"
+                "message": "Pokedex running correctly"
               }
             }
           }
@@ -31,10 +31,10 @@
       }
     }
   },
-  "/users/all": {
+  "/pokedex": {
     "get": {
-      "tags": ["Users"],
-      "summary": "Get all users",
+      "tags": ["Pokedex"],
+      "summary": "Get all Pokemon",
       "responses": {
         "200": {
           "description": "SUCCESS",
@@ -49,7 +49,7 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "Users retrieved successfully"
+                    "example": "Pokemon retrieved successfully"
                   },
                   "data": {
                     "type": "array",
@@ -60,33 +60,59 @@
                           "type": "string",
                           "example": "1"
                         },
-                        "first_name": {
+                        "name": {
                           "type": "string",
-                          "example": "Nombre"
+                          "example": "charmander"
                         },
-                        "last_name": {
+                        "image": {
                           "type": "string",
-                          "example": "Apellido"
+                          "example": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
                         },
-                        "birthday": {
-                          "type": "string",
-                          "example": "01/01/2000"
+                        "types": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": ["fire", ""]
                         },
-                        "gender": {
+                        "category": {
                           "type": "string",
-                          "example": "M"
+                          "example": "Common"
                         },
-                        "email": {
+                        "generation": {
                           "type": "string",
-                          "example": "user@email.com"
+                          "example": "i"
                         },
-                        "password": {
-                          "type": "string",
-                          "example": "$2b$10$OUES4cNSBqBZmL13APIyQTdrN1g1eL7Rt"
+                        "height": {
+                          "type": "number",
+                          "example": "0.6"
                         },
-                        "role": {
-                          "type": "string",
-                          "example": "user"
+                        "weight": {
+                          "type": "number",
+                          "example": "8.5"
+                        },
+                        "stats": {
+                          "type": "object",
+                          "properties": {
+                            "hp": { "type": "integer" },
+                            "speed": { "type": "integer" },
+                            "attack": { "type": "integer" },
+                            "special_attack": { "type": "integer" },
+                            "defense": { "type": "integer" },
+                            "special_defense": { "type": "integer" }
+                          },
+                          "example": {
+                            "hp": 39,
+                            "speed": 65,
+                            "attack": 52,
+                            "special_attack": 60,
+                            "defense": 43,
+                            "special_defense": 50
+                          }
+                        },
+                        "level": {
+                          "type": "number",
+                          "example": "1"
                         }
                       }
                     }
@@ -95,27 +121,45 @@
               },
               "example": {
                 "status": "success",
-                "message": "Users retrieved successfully",
+                "message": "Pokemon retrieved successfully",
                 "data": [
                   {
-                    "id": "1",
-                    "first_name": "Primer nombre",
-                    "last_name": "Primer apellido",
-                    "birthday": "01/01/2000",
-                    "gender": "M",
-                    "email": "primer@email.com",
-                    "password": "$2b$10$OBZmL13AeL7RtJWFXV6hEuD9VJFqFhZaSPIyQTdrN1g1UES4cNSBq",
-                    "role": "user"
+                    "id": 1,
+                    "name": "charmander",
+                    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+                    "types": ["fire", ""],
+                    "category": "Common",
+                    "generation": "i",
+                    "height": 0.6,
+                    "weight": 8.5,
+                    "stats": {
+                      "hp": 39,
+                      "speed": 65,
+                      "attack": 52,
+                      "special_attack": 60,
+                      "defense": 43,
+                      "special_defense": 50
+                    },
+                    "level": 1
                   },
                   {
-                    "id": "2",
-                    "first_name": "Seguno nombre",
-                    "last_name": "Segundo apellido",
-                    "birthday": "02/02/2002",
-                    "gender": "F",
-                    "email": "segundo@email.com",
-                    "password": "$2b$uz8F86s10Ds.6S2t6O.xhy$i.qQxjL/NRo.5TaB/41/nP.O6kYCg9k6e",
-                    "role": "user"
+                    "id": 2,
+                    "name": "pikachu",
+                    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+                    "types": ["electric", ""],
+                    "category": "Common",
+                    "generation": "i",
+                    "height": 0.4,
+                    "weight": 6,
+                    "stats": {
+                      "hp": 35,
+                      "speed": 90,
+                      "attack": 55,
+                      "special_attack": 50,
+                      "defense": 40,
+                      "special_defense": 50
+                    },
+                    "level": 1
                   }
                 ]
               }
@@ -145,36 +189,12 @@
               }
             }
           }
-        },
-        "403": {
-          "description": "FORBIDDEN",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "example": "error"
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Access denied"
-                  }
-                }
-              },
-              "example": {
-                "status": "error",
-                "message": "Access denied"
-              }
-            }
-          }
         }
       }
     },
     "delete": {
-      "tags": ["Users"],
-      "summary": "Delete all users",
+      "tags": ["Pokedex"],
+      "summary": "Delete all Pokemon",
       "responses": {
         "200": {
           "description": "SUCCESS",
@@ -189,13 +209,13 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "Users deleted successfully"
+                    "example": "Pokemon deleted successfully"
                   }
                 }
               },
               "example": {
                 "status": "success",
-                "message": "Users deleted successfully"
+                "message": "Pokemon deleted successfully"
               }
             }
           }
@@ -223,38 +243,12 @@
               }
             }
           }
-        },
-        "403": {
-          "description": "FORBIDDEN",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "example": "error"
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Access denied"
-                  }
-                }
-              },
-              "example": {
-                "status": "error",
-                "message": "Access denied"
-              }
-            }
-          }
         }
       }
-    }
-  },
-  "/users/": {
+    },
     "post": {
-      "tags": ["Users"],
-      "summary": "Create user",
+      "tags": ["Pokedex"],
+      "summary": "Create Pokemon",
       "responses": {
         "200": {
           "description": "SUCCESS",
@@ -269,13 +263,13 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "User created successfully"
+                    "example": "Pokemon created successfully"
                   }
                 }
               },
               "example": {
                 "status": "success",
-                "message": "User created successfully"
+                "message": "Pokemon created successfully"
               }
             }
           }
@@ -298,7 +292,7 @@
                 }
               },
               "example": {
-                "status": "error",
+                "status": "success",
                 "message": "Invalid field 'FIELD_NAME'"
               }
             }
@@ -328,30 +322,6 @@
             }
           }
         },
-        "403": {
-          "description": "FORBIDDEN",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "example": "error"
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Access denied"
-                  }
-                }
-              },
-              "example": {
-                "status": "error",
-                "message": "Access denied"
-              }
-            }
-          }
-        },
         "409": {
           "description": "CONFLICT",
           "content": {
@@ -365,13 +335,13 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "Email already exist"
+                    "example": "Pokemon already exist"
                   }
                 }
               },
               "example": {
                 "status": "error",
-                "message": "Email already exist"
+                "message": "Pokemon already exist"
               }
             }
           }
@@ -379,10 +349,10 @@
       }
     }
   },
-  "/users/:id": {
+  "pokedex/:name": {
     "get": {
-      "tags": ["Users"],
-      "summary": "Get user by ID",
+      "tags": ["Pokedex"],
+      "summary": "Get Pokemon by name",
       "responses": {
         "200": {
           "description": "SUCCESS",
@@ -397,7 +367,7 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "User retrieved successfully"
+                    "example": "Pokemon retrieved successfully"
                   },
                   "data": {
                     "type": "object",
@@ -406,37 +376,59 @@
                         "type": "string",
                         "example": "1"
                       },
-                      "first_name": {
+                      "name": {
                         "type": "string",
-                        "example": "Nombre"
+                        "example": "charmander"
                       },
-                      "last_name": {
+                      "image": {
                         "type": "string",
-                        "example": "Apellido"
+                        "example": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
                       },
-                      "birthday": {
+                      "types": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "example": ["fire", ""]
+                      },
+                      "category": {
                         "type": "string",
-                        "example": "01/01/2000"
+                        "example": "Common"
                       },
-                      "gender": {
+                      "generation": {
                         "type": "string",
-                        "example": "M"
+                        "example": "i"
                       },
-                      "email": {
-                        "type": "string",
-                        "example": "user@email.com"
-                      },
-                      "password": {
-                        "type": "string",
-                        "example": "$2b$10$OUES4cNSBqBZmL13APIyQTdrN1g1eL7Rt"
-                      },
-                      "role": {
-                        "type": "string",
-                        "example": "user"
-                      },
-                      "__v": {
+                      "height": {
                         "type": "number",
-                        "example": 0
+                        "example": "0.6"
+                      },
+                      "weight": {
+                        "type": "number",
+                        "example": "8.5"
+                      },
+                      "stats": {
+                        "type": "object",
+                        "properties": {
+                          "hp": { "type": "integer" },
+                          "speed": { "type": "integer" },
+                          "attack": { "type": "integer" },
+                          "special_attack": { "type": "integer" },
+                          "defense": { "type": "integer" },
+                          "special_defense": { "type": "integer" }
+                        },
+                        "example": {
+                          "hp": 39,
+                          "speed": 65,
+                          "attack": 52,
+                          "special_attack": 60,
+                          "defense": 43,
+                          "special_defense": 50
+                        }
+                      },
+                      "level": {
+                        "type": "number",
+                        "example": "1"
                       }
                     }
                   }
@@ -444,16 +436,25 @@
               },
               "example": {
                 "status": "success",
-                "message": "User retrieved successfully",
+                "message": "Pokemon retrieved successfully",
                 "data": {
-                  "id": "1",
-                  "first_name": "Nombre",
-                  "last_name": "Apellido",
-                  "birthday": "01/01/2000",
-                  "gender": "M",
-                  "email": "user@email.com",
-                  "password": "$2b$10$OBZmL13AeL7RtJWFXV6hEuD9VJFqFhZaSPIyQTdrN1g1UES4cNSBq",
-                  "role": "user"
+                  "id": 1,
+                  "name": "charmander",
+                  "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+                  "types": ["fire", ""],
+                  "category": "Common",
+                  "generation": "i",
+                  "height": 0.6,
+                  "weight": 8.5,
+                  "stats": {
+                    "hp": 39,
+                    "speed": 65,
+                    "attack": 52,
+                    "special_attack": 60,
+                    "defense": 43,
+                    "special_defense": 50
+                  },
+                  "level": 1
                 }
               }
             }
@@ -483,8 +484,8 @@
             }
           }
         },
-        "403": {
-          "description": "FORBIDDEN",
+        "404": {
+          "description": "NOT FOUND",
           "content": {
             "application/json": {
               "schema": {
@@ -496,13 +497,67 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "Access denied"
+                    "example": "Pokemon not found"
                   }
                 }
               },
               "example": {
                 "status": "error",
-                "message": "Access denied"
+                "message": "Pokemon not found"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "tags": ["Pokedex"],
+      "summary": "Delete Pokemon by name",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Pokemon deleted successfully"
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Pokemon deleted successfully"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
               }
             }
           }
@@ -520,22 +575,22 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "User not found"
+                    "example": "Pokemon not found"
                   }
                 }
               },
               "example": {
-                "status": "success",
-                "message": "User not found"
+                "status": "error",
+                "message": "Pokemon not found"
               }
             }
           }
         }
       }
     },
-    "put": {
-      "tags": ["Users"],
-      "summary": "Update user by ID",
+    "patch": {
+      "tags": ["Pokedex"],
+      "summary": "Upgrade Pokemon by name",
       "responses": {
         "200": {
           "description": "SUCCESS",
@@ -550,13 +605,13 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "User updated successfully"
+                    "example": "Pokemon updated successfully"
                   }
                 }
               },
               "example": {
                 "status": "success",
-                "message": "User updated successfully"
+                "message": "Pokemon updated successfully"
               }
             }
           }
@@ -574,13 +629,13 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "Invalid field 'FIELD_NAME'"
+                    "example": "Pokemon is already at max level (100)"
                   }
                 }
               },
               "example": {
                 "status": "error",
-                "message": "Invalid field 'FIELD_NAME'"
+                "message": "Pokemon is already at max level (100)"
               }
             }
           }
@@ -609,30 +664,6 @@
             }
           }
         },
-        "403": {
-          "description": "FORBIDDEN",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "example": "error"
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Access denied"
-                  }
-                }
-              },
-              "example": {
-                "status": "error",
-                "message": "Access denied"
-              }
-            }
-          }
-        },
         "404": {
           "description": "NOT FOUND",
           "content": {
@@ -646,46 +677,24 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "User not found"
+                    "example": "Pokemon not found"
                   }
                 }
               },
               "example": {
                 "status": "error",
-                "message": "User not found"
-              }
-            }
-          }
-        },
-        "409": {
-          "description": "CONFLICT",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "example": "error"
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Email already exist"
-                  }
-                }
-              },
-              "example": {
-                "status": "error",
-                "message": "Email already exist"
+                "message": "Pokemon not found"
               }
             }
           }
         }
       }
-    },
-    "delete": {
-      "tags": ["Users"],
-      "summary": "Delete user by ID",
+    }
+  },
+  "/pokedex/search/:name": {
+    "get": {
+      "tags": ["Pokedex"],
+      "summary": "Search Pokemon by name",
       "responses": {
         "200": {
           "description": "SUCCESS",
@@ -700,61 +709,133 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "User deleted successfully"
+                    "example": "Pokemon retrieved successfully"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "charmander"
+                      },
+                      "image": {
+                        "type": "string",
+                        "example": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
+                      },
+                      "types": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "example": ["fire", ""]
+                      },
+                      "category": {
+                        "type": "string",
+                        "example": "Common"
+                      },
+                      "generation": {
+                        "type": "string",
+                        "example": "i"
+                      },
+                      "height": {
+                        "type": "number",
+                        "example": "0.6"
+                      },
+                      "weight": {
+                        "type": "number",
+                        "example": "8.5"
+                      },
+                      "stats": {
+                        "type": "object",
+                        "properties": {
+                          "hp": { "type": "integer" },
+                          "speed": { "type": "integer" },
+                          "attack": { "type": "integer" },
+                          "special_attack": { "type": "integer" },
+                          "defense": { "type": "integer" },
+                          "special_defense": { "type": "integer" }
+                        },
+                        "example": {
+                          "hp": 39,
+                          "speed": 65,
+                          "attack": 52,
+                          "special_attack": 60,
+                          "defense": 43,
+                          "special_defense": 50
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "message": "Pokemon retrieved successfully",
+                  "data": {
+                    "name": "charmander",
+                    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+                    "types": ["fire", ""],
+                    "category": "Common",
+                    "generation": "i",
+                    "height": 0.6,
+                    "weight": 8.5,
+                    "stats": {
+                      "hp": 39,
+                      "speed": 65,
+                      "attack": 52,
+                      "special_attack": 60,
+                      "defense": 43,
+                      "special_defense": 50
+                    }
                   }
                 }
-              },
-              "example": {
-                "status": "success",
-                "message": "User deleted successfully"
               }
             }
-          }
-        },
-        "401": {
-          "description": "UNAUTHORIZED",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "example": "error"
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Invalid or missing token"
+          },
+          "401": {
+            "description": "UNAUTHORIZED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid or missing token"
+                    }
                   }
+                },
+                "example": {
+                  "status": "error",
+                  "message": "Invalid or missing token"
                 }
-              },
-              "example": {
-                "status": "error",
-                "message": "Invalid or missing token"
               }
             }
-          }
-        },
-        "403": {
-          "description": "FORBIDDEN",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "example": "error"
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Access denied"
+          },
+          "404": {
+            "description": "NOT FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Pokemon not found"
+                    }
                   }
+                },
+                "example": {
+                  "status": "error",
+                  "message": "Pokemon not found"
                 }
-              },
-              "example": {
-                "status": "error",
-                "message": "Access denied"
               }
             }
           }
@@ -772,13 +853,13 @@
                   },
                   "message": {
                     "type": "string",
-                    "example": "User not found"
+                    "example": "Pokemon not found"
                   }
                 }
               },
               "example": {
                 "status": "error",
-                "message": "User not found"
+                "message": "Pokemon not found"
               }
             }
           }

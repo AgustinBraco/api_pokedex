@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API CRUD",
+    "title": "API Pokedex",
     "version": "1.0.0",
-    "description": "This is a simple CRUD (Create, Read, Update, Delete) API built with JavaScript and Express. \n\n It allows clients to manage resources via RESTful endpoints using standard HTTP methods. \n\n The API includes user authentication with JWT and password hashing using bcryptjs. \n\n It uses CORS middleware to handle cross-origin requests and dotenv for environment variable management. \n\n Data is stored in a MongoDB database using Mongoose as the ODM. \n\n Swagger is integrated for automatic API documentation."
+    "description": "This is a simple Pokédex CRUD (Create, Read, Update, Delete) API built with JavaScript and Express.\n\nIt allows clients to manage Pokémon entries via RESTful endpoints using standard HTTP methods.\n\nThe API includes user authentication with JWT and password hashing using bcryptjs.\n\nIt uses CORS middleware to handle cross-origin requests and dotenv for environment variable management.\n\nData is stored in a SQLite3 database.\n\nSecurity is enhanced with Helmet and rate limiting using express-rate-limit.\n\nLogging is handled by Winston, and Swagger is integrated for automatic API documentation.\n\nThe project includes tests using Mocha, Chai, and Supertest."
   },
   "paths": {}
 }

@@ -1,0 +1,42 @@
+{
+  "valid": {
+    "name": "charmander",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+    "types": ["fire", ""],
+    "category": "Common",
+    "generation": "i",
+    "height": 0.6,
+    "weight": 8.5,
+    "stats": {
+      "hp": 39,
+      "speed": 65,
+      "attack": 52,
+      "special_attack": 60,
+      "defense": 43,
+      "special_defense": 50
+    },
+    "level": 98
+  },
+  "invalid": {
+    "name": "charmander",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+    "types": ["fire", ""],
+    "category": "",
+    "generation": "i",
+    "height": 0.6,
+    "weight": 8.5,
+    "stats": {
+      "hp": 39,
+      "speed": 65,
+      "attack": 52,
+      "special_attack": 60,
+      "defense": 43,
+      "special_defense": 50
+    },
+    "level": 98
+  },
+  "name": {
+    "valid": "charmander",
+    "invalid": "chaarmander"
+  }
+}

@@ -1,5 +1,5 @@
-import authRoute from './auth.routes.js'
-import usersRoute from './users.routes.js'
-import productsRoute from './products.routes.js'
+import pokedex from './pokedex.route.js'
+import auth from './auth.routes.js'
+import users from './users.routes.js'
 
-export { authRoute, usersRoute, productsRoute }
+export { pokedex, auth, users }

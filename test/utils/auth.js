@@ -9,21 +9,21 @@ export class Auth {
 
   async register(type) {
     return await this.client
-      .post('/api/crud/auth/register')
+      .post('/api/pokedex/auth/register')
       .set('Content-Type', 'application/json')
       .send(auth.register[type])
   }
 
   async login(type) {
     return await this.client
-      .post('/api/crud/auth/login')
+      .post('/api/pokedex/auth/login')
       .set('Content-Type', 'application/json')
       .send(auth.login[type])
   }
 
   async admin(type) {
     return await this.client
-      .post('/api/crud/auth/login/admin')
+      .post('/api/pokedex/auth/login/admin')
       .set('Content-Type', 'application/json')
       .set('admin_key', auth.admin.key)
       .send(auth.admin[type])
@@ -31,22 +31,22 @@ export class Auth {
 
   static async admin() {
     const response = await supertest(app)
-      .post('/api/crud/auth/login/admin')
+      .post('/api/pokedex/auth/login/admin')
       .set('Content-Type', 'application/json')
       .set('admin_key', auth.admin.key)
       .send(auth.admin.valid)
 
     const data = JSON.parse(response.res.text)
-    return data.token
+    return data.data
   }
 
   static async user() {
     const response = await supertest(app)
-      .post('/api/crud/auth/register')
+      .post('/api/pokedex/auth/register')
       .set('Content-Type', 'application/json')
       .send(auth.register.valid)
 
     const data = JSON.parse(response.res.text)
-    return data.token
+    return data.data
   }
 }

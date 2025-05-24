@@ -5,24 +5,23 @@ import { fileURLToPath } from 'url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-const docsData = await readFile(join(__dirname, './docs.json'), 'utf-8')
-const rootData = await readFile(join(__dirname, './routes/root.json'), 'utf-8')
-const authData = await readFile(join(__dirname, './routes/auth.json'), 'utf-8')
-const productsData = await readFile(join(__dirname, './routes/products.json'), 'utf-8')
-const userData = await readFile(join(__dirname, './routes/users.json'), 'utf-8')
+let docs, auth, user, pokedex
 
-const docs = JSON.parse(docsData)
-const root = JSON.parse(rootData)
-const auth = JSON.parse(authData)
-const products = JSON.parse(productsData)
-const user = JSON.parse(userData)
+docs = await readFile(join(__dirname, './docs.json'), 'utf-8')
+auth = await readFile(join(__dirname, './routes/auth.json'), 'utf-8')
+user = await readFile(join(__dirname, './routes/users.json'), 'utf-8')
+pokedex = await readFile(join(__dirname, './routes/pokedex.json'), 'utf-8')
 
-docs.server = `${environment.ORIGIN_URL}/api/crud`
+docs = JSON.parse(docs)
+auth = JSON.parse(auth)
+user = JSON.parse(user)
+pokedex = JSON.parse(pokedex)
+
+docs.server = `${environment.ORIGIN_URL}/api/pokedex`
 
 docs.paths = {
-  ...root,
+  ...pokedex,
   ...auth,
-  ...products,
   ...user
 }
 

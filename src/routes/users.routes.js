@@ -3,321 +3,150 @@ import logger from '../logger/logger.js'
 import UserDAO from '../DAO/users.dao.js'
 import UserDTO from '../DTO/user.dto.js'
 import { isAuth, isAdmin, isValidUser } from '../middlewares/middlewares.js'
+import { Responses } from '../utils/utils.js'
 
 const usersRoute = express.Router()
 
 // Check
 usersRoute.get('/check', (req, res) => {
   try {
-    logger.info('GET /api/crud/users/check received')
+    logger.info('GET /api/pokedex/users/check received')
 
-    const response = {
-      status: 'success',
-      message: 'Users running correctly'
-    }
-
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
-
-    return res.status(200).json(response)
+    return Responses.success(res, 'Users running correctly')
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
 // Retrieve all users
-usersRoute.get('/', isAuth, isAdmin, async (req, res) => {
+usersRoute.get('/all', isAuth, isAdmin, async (req, res) => {
   try {
-    logger.info('GET /api/crud/users received')
+    logger.info('GET /api/pokedex/users received')
+    let data
 
-    const users = await UserDAO.getAll()
+    data = await UserDAO.getAll()
 
-    const response = {
-      status: 'success',
-      message: 'Users retrieved successfully',
-      data: users
-    }
-
-    logger.info(
-      `Responded with 200: ${JSON.stringify({
-        ...response,
-        data: ['...']
-      })}`
-    )
-
-    res.status(200).json(response)
+    return Responses.success(res, 'Users retrieved successfully', data || [])
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
 // Create user
 usersRoute.post('/', isAuth, isAdmin, isValidUser, async (req, res) => {
   try {
-    logger.info('POST /api/crud/users received')
-    let response
+    logger.info('POST /api/pokedex/users received')
+    let user
 
-    const { firstName, lastName, birthday, gender, email, password } = req.body
+    const { first_name, last_name, birthday, gender, email, password } =
+      req.body
 
     // Validate if already exist
-    const userExist = await UserDAO.getByEmail(email)
-    if (userExist) {
-      response = {
-        status: 'error',
-        message: 'Email already exist'
-      }
+    user = await UserDAO.getByEmail(email)
+    if (user) return Responses.conflict(res, 'Email already exist')
 
-      logger.warn(`Responded with 409: ${JSON.stringify(response)}`)
-
-      return res.status(409).json(response)
-    }
-
-    // Create and retrieve user
-    const user = await UserDTO.create({
-      firstName,
-      lastName,
+    user = await UserDTO.create({
+      first_name,
+      last_name,
       birthday,
       gender,
       email,
       password
     })
-    const data = await UserDAO.create(user)
 
-    response = {
-      status: 'success',
-      message: 'User created successfully',
-      data
-    }
+    await UserDAO.create(user)
 
-    logger.info(
-      `Responded with 200: ${JSON.stringify({
-        ...response,
-        data: ['...']
-      })}`
-    )
-
-    return res.status(200).json(response)
+    return Responses.success(res, 'User created successfully')
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
 // Delete all users
-usersRoute.delete('/', isAuth, isAdmin, async (req, res) => {
+usersRoute.delete('/all', isAuth, isAdmin, async (req, res) => {
   try {
-    logger.info('DELETE /api/crud/users received')
+    logger.info('DELETE /api/pokedex/users received')
 
     await UserDAO.deleteAll()
 
-    const response = {
-      status: 'success',
-      message: 'Users deleted successfully'
-    }
-
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
-
-    res.status(200).json(response)
+    return Responses.success(res, 'Users deleted successfully')
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
 // Retrieve user by ID
 usersRoute.get('/:id', isAuth, isAdmin, async (req, res) => {
   try {
-    let response
     const { id } = req.params
+    logger.info(`GET /api/pokedex/users/${id} received`)
 
-    logger.info(`GET /api/crud/users/${id} received`)
+    let user
 
-    const user = await UserDAO.getById(id)
+    // Validate if exist
+    user = await UserDAO.getByID(id)
+    if (!user) return Responses.notFound(res, 'User not found')
 
-    if (!user) {
-      response = {
-        status: 'error',
-        message: 'User not found'
-      }
-
-      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
-
-      return res.status(404).json(response)
-    }
-
-    response = {
-      status: 'success',
-      message: 'User retrieved successfully',
-      data: user
-    }
-
-    logger.info(
-      `Responded with 200: ${JSON.stringify({
-        ...response,
-        data: ['...']
-      })}`
-    )
-
-    return res.status(200).json(response)
+    return Responses.success(res, 'User retrieved successfully', user)
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
 // Update user by ID
 usersRoute.put('/:id', isAuth, isAdmin, isValidUser, async (req, res) => {
   try {
-    let response
     const { id } = req.params
+    logger.info(`PUT /api/pokedex/users/${id} received`)
 
-    logger.info(`PUT /api/crud/users/${id} received`)
+    let user, data
 
-    const { firstName, lastName, birthday, gender, email, password } = req.body
+    const { first_name, last_name, birthday, gender, email, password } =
+      req.body
 
     // Validate if exist
-    const userDB = await UserDAO.getById(id)
-    if (!userDB) {
-      response = {
-        status: 'error',
-        message: 'User not found'
-      }
-
-      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
-
-      return res.status(404).json(response)
-    }
+    user = await UserDAO.getByID(id)
+    if (!user) return Responses.notFound(res, 'User not found')
 
     // Validate non duplicate email
     const userExist = await UserDAO.getByEmail(email)
-    if (userExist && userExist._id.toString() !== id) {
-      response = {
-        status: 'error',
-        message: 'Email already exist'
-      }
+    if (userExist && userExist.id.toString() !== id)
+      return Responses.conflict(res, 'Email already exist')
 
-      logger.warn(`Responded with 409: ${JSON.stringify(response)}`)
-
-      return res.status(409).json(response)
-    }
-
-    // Update and retrieve user
-    const user = await UserDTO.create({
-      firstName,
-      lastName,
+    user = await UserDTO.create({
+      first_name,
+      last_name,
       birthday,
       gender,
       email,
       password
     })
 
-    const data = await UserDAO.update(id, user)
+    data = await UserDAO.update(id, user)
 
-    response = {
-      status: 'success',
-      message: 'User updated successfully',
-      data
-    }
-
-    logger.info(
-      `Responded with 200: ${JSON.stringify({
-        ...response,
-        data: ['...']
-      })}`
-    )
-
-    return res.status(200).json(response)
+    return Responses.success(res, 'User updated successfully', data)
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
 // Delete user by ID
 usersRoute.delete('/:id', isAuth, isAdmin, async (req, res) => {
   try {
-    let response
     const { id } = req.params
+    logger.info(`DELETE /api/pokedex/users/${id} received`)
 
-    logger.info(`DELETE /api/crud/users/${id} received`)
+    let user
 
     // Validate if exist
-    const userDB = await UserDAO.getById(id)
-    if (!userDB) {
-      response = {
-        status: 'error',
-        message: 'User not found'
-      }
+    user = await UserDAO.getByID(id)
+    if (!user) return Responses.notFound(res, 'User not found')
 
-      logger.warn(`Responded with 404: ${JSON.stringify(response)}`)
-
-      return res.status(404).json(response)
-    }
-
-    // Delete and send response
     await UserDAO.delete(id)
 
-    response = {
-      status: 'success',
-      message: 'User deleted successfully'
-    }
-
-    logger.info(`Responded with 200: ${JSON.stringify(response)}`)
-
-    return res.status(200).json(response)
+    return Responses.success(res, 'User deleted successfully')
   } catch (error) {
-    const response = {
-      status: 'error',
-      message: 'Internal server error',
-      error: error.message
-    }
-
-    logger.error(`Responded with 500: ${JSON.stringify(response)}`)
-
-    return res.status(500).json(response)
+    return Responses.error(res, error)
   }
 })
 
