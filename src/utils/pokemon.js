@@ -12,7 +12,7 @@ export const getPokemon = async pokemon => {
     // Basic information
     const data = await res.json()
     const name = data.name
-    const image = data.sprites.front_default
+    const image = data.sprites.other['official-artwork'].front_default
     const height = data.height / 10 // (decimeters to meters)
     const weight = data.weight / 10 // (hectograms to kilos)
 

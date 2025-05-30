@@ -17,7 +17,7 @@ auth = JSON.parse(auth)
 user = JSON.parse(user)
 pokedex = JSON.parse(pokedex)
 
-docs.server = `${environment.ORIGIN_URL}/api/pokedex`
+docs.server = `${environment.ENVIRONMENT_URL}/api/pokedex`
 
 docs.paths = {
   ...pokedex,

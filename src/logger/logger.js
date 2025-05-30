@@ -46,7 +46,7 @@ const useConsole = () =>
   )
 
 // Select environment
-const isLocal = environment.ORIGIN_URL.includes('localhost')
+const isLocal = environment.ENVIRONMENT_URL.includes('localhost')
 isLocal ? useFiles() : useConsole()
 
 const logger = winston.createLogger({
