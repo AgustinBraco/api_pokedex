@@ -113,7 +113,7 @@ usersRoute.put('/:id', isAuth, isAdmin, isValidUser, async (req, res) => {
     if (userExist && userExist.id.toString() !== id)
       return Responses.conflict(res, 'Email already exist')
 
-    user = await UserDTO.create({
+    user = await UserDTO.update({
       first_name,
       last_name,
       birthday,

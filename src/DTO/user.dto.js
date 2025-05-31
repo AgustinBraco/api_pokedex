@@ -1,4 +1,4 @@
-import { encryptPassword } from '../utils/encrypt.js'
+import { encryptPassword, isEncrypted } from '../utils/encrypt.js'
 
 class UserDTO {
   constructor(user) {
@@ -12,8 +12,16 @@ class UserDTO {
   }
 
   static async create(user) {
-    const hashedPassword = await encryptPassword(user.password)
-    return new UserDTO({ ...user, password: hashedPassword })
+    const encryptedPassword = await encryptPassword(user.password)
+    return new UserDTO({ ...user, password: encryptedPassword })
+  }
+
+  static async update(user) {
+    const encryptedPassword = isEncrypted(user.password)
+      ? user.password
+      : await encryptPassword(user.password)
+
+    return new UserDTO({ ...user, password: encryptedPassword })
   }
 }
 
