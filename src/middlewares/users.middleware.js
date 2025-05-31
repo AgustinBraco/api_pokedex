@@ -1,3 +1,4 @@
+import environment from '../environment/environment.js'
 import logger from '../logger/logger.js'
 import { Responses } from '../utils/utils.js'
 
@@ -19,6 +20,9 @@ export const isValidUser = async (req, res, next) => {
   for (const field in user)
     if (user[field].length <= 0 || typeof user[field] !== 'string')
       return Responses.badRequest(res, `Invalid field '${field}'`)
+
+  if (email === environment.ADMIN_EMAIL)
+    return Responses.conflict(res, 'Email already exist')
 
   logger.info(`User middleware passed`)
   next()

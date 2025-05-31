@@ -33,9 +33,9 @@ export const getPokemon = async pokemon => {
     const isLegenday = speciesData.is_legendary
     const isMythical = speciesData.is_mythical
 
-    if (isLegenday) category = 'Legendary'
-    else if (isMythical) category = 'Mythic'
-    else category = 'Common'
+    if (isLegenday) category = 'legendary'
+    else if (isMythical) category = 'mythic'
+    else category = 'common'
 
     // Format fields
     const generation = speciesData.generation.name.replace('generation-', '')
