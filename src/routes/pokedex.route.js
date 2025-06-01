@@ -56,13 +56,16 @@ pokedex.post('/', isAuth, isValidPokemon, async (req, res) => {
   try {
     logger.info('POST /api/pokedex received')
 
-    let pokemon, data
+    let pokemon, data, limit
 
     pokemon = req.pokemon
 
     // Validate if already exist
     data = await PokedexDAO.get(pokemon.name)
     if (data) return Responses.conflict(res, 'Pokemon already exist')
+
+    limit = await PokedexDAO.getAll()
+    if (limit.length >= 6) return Responses.conflict(res, 'Pokemon limit reached')
 
     await PokedexDAO.create(pokemon)
 
