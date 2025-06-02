@@ -866,5 +866,68 @@
         }
       }
     }
+  },
+  "/pokedex/names/all": {
+    "get": {
+      "tags": ["Pokedex"],
+      "summary": "Get all Pokemon names",
+      "responses": {
+        "200": {
+          "description": "SUCCESS",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "success"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Names retrieved successfully"
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "example": {
+                "status": "success",
+                "message": "Names retrieved successfully",
+                "data": ["Pikachu", "Charmander", "Squirtle", "..."]
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "UNAUTHORIZED",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "error"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Invalid or missing token"
+                  }
+                }
+              },
+              "example": {
+                "status": "error",
+                "message": "Invalid or missing token"
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
