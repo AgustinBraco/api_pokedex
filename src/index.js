@@ -20,14 +20,14 @@ app.use(
     credentials: true
   })
 )
-app.use(
-  rateLimit({
-    windowMs: 900000, // 15 minutes
-    max: 300,
-    message: 'Too many requests. Please try again later.',
-    headers: true
-  })
-)
+// app.use(
+//   rateLimit({
+//     windowMs: 900000, // 15 minutes
+//     max: 300,
+//     message: 'Too many requests. Please try again later.',
+//     headers: true
+//   })
+// )
 
 // Router
 app.use('/api/pokedex', router)
