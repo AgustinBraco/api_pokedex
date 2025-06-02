@@ -65,7 +65,8 @@ pokedex.post('/', isAuth, isValidPokemon, async (req, res) => {
     if (data) return Responses.conflict(res, 'Pokemon already exist')
 
     limit = await PokedexDAO.getAll()
-    if (limit.length >= 6) return Responses.conflict(res, 'Pokemon limit reached')
+    if (limit.length >= 6)
+      return Responses.conflict(res, 'Pokemon limit reached')
 
     await PokedexDAO.create(pokemon)
 
@@ -153,6 +154,29 @@ pokedex.get('/search/:name', isAuth, async (req, res) => {
     if (!pokemon) return Responses.notFound(res, 'Pokemon not found')
 
     return Responses.success(res, 'Pokemon retrieved successfully', pokemon)
+  } catch (error) {
+    return Responses.error(res, error)
+  }
+})
+
+// Get all names
+pokedex.get('/names/all', isAuth, async (req, res) => {
+  try {
+    logger.info(`GET /api/pokedex/names/all received`)
+
+    let names
+
+    await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000')
+      .then(res => res.json())
+      .then(
+        data =>
+          (names = data.results.map(
+            pokemon =>
+              pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+          ))
+      )
+
+    return Responses.success(res, 'Names retrieved successfully', names)
   } catch (error) {
     return Responses.error(res, error)
   }

@@ -302,6 +302,29 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Get names",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{pokedex}}/api/pokedex/names/all",
+              "host": ["{{pokedex}}"],
+              "path": ["api", "pokedex", "names", "all"]
+            }
+          },
+          "response": []
         }
       ]
     },
